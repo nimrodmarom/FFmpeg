@@ -36,7 +36,7 @@
 #include "video.h"
 
 typedef struct PSNRContext {
-    const AVClass *class;
+    const AVClass *class;a
     FFFrameSync fs;
     double mse, min_mse, max_mse, mse_comp[4];
     uint64_t nb_frames;
