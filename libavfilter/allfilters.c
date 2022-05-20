@@ -462,6 +462,7 @@ extern AVFilter ff_vf_xbr;
 extern AVFilter ff_vf_xfade;
 extern AVFilter ff_vf_xfade_opencl;
 extern AVFilter ff_vf_xmedian;
+extern AVFilter ff_vf_xpsnr;
 extern AVFilter ff_vf_xstack;
 extern AVFilter ff_vf_yadif;
 extern AVFilter ff_vf_yadif_cuda;
