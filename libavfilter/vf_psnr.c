@@ -86,7 +86,7 @@ static uint64_t sse_line_8bit(const uint8_t *main_line,  const uint8_t *ref_line
     //TODO: R&N Delete begin
     // create text file and open it
     FILE *fp; 
-    char *filename = "psnr.txt"; 
+    const char *filename = "psnr.txt"; 
     fp = fopen(filename, "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
@@ -118,7 +118,7 @@ static uint64_t sse_line_16bit(const uint8_t *_main_line, const uint8_t *_ref_li
     //TODO: R&N Delete begin
     // create text file and open it
     FILE *fp; 
-    char *filename = "psnr.txt"; 
+    const char *filename = "psnr.txt"; 
     fp = fopen(filename, "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
@@ -166,7 +166,7 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
     //TODO: R&N Delete begin
     // create text file and open it
     FILE *fp; 
-    char *filename = "psnr.txt"; 
+    const char *filename = "psnr.txt"; 
     fp = fopen(filename, "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
@@ -212,7 +212,7 @@ static void set_meta(AVDictionary **metadata, const char *key, char comp, float 
     //TODO: R&N Delete begin
     // create text file and open it
     FILE *fp; 
-    char *filename = "psnr.txt"; 
+    const char *filename = "psnr.txt"; 
     fp = fopen(filename, "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
@@ -246,7 +246,7 @@ static int do_psnr(FFFrameSync *fs)
     //TODO: R&N Delete begin
     // create text file and open it
     FILE *fp; 
-    char *filename = "psnr.txt"; 
+    const char *filename = "psnr.txt"; 
     fp = fopen(filename, "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
@@ -373,7 +373,7 @@ static av_cold int init(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     // create text file and open it
     FILE *fp; 
-    char *filename = "psnr.txt"; 
+    const char *filename = "psnr.txt"; 
     fp = fopen(filename, "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
@@ -425,7 +425,7 @@ static int query_formats(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     // create text file and open it
     FILE *fp; 
-    char *filename = "psnr.txt"; 
+    const char *filename = "psnr.txt"; 
     fp = fopen(filename, "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
@@ -478,7 +478,7 @@ static int config_input_ref(AVFilterLink *inlink)
     //TODO: R&N Delete begin
     // create text file and open it
     FILE *fp; 
-    char *filename = "psnr.txt"; 
+    const char *filename = "psnr.txt"; 
     fp = fopen(filename, "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
@@ -562,7 +562,7 @@ static int config_output(AVFilterLink *outlink)
     //TODO: R&N Delete begin
     // create text file and open it
     FILE *fp; 
-    char *filename = "psnr.txt"; 
+    const char *filename = "psnr.txt"; 
     fp = fopen(filename, "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
@@ -612,7 +612,7 @@ static int activate(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     // create text file and open it
     FILE *fp; 
-    char *filename = "psnr.txt"; 
+    const char *filename = "psnr.txt"; 
     fp = fopen(filename, "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
@@ -638,7 +638,7 @@ static av_cold void uninit(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     // create text file and open it
     FILE *fp; 
-    char *filename = "psnr.txt"; 
+    const char *filename = "psnr.txt"; 
     fp = fopen(filename, "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
