@@ -366,7 +366,7 @@ static int do_psnr(FFFrameSync *fs)
     now2 = time(NULL);
     // fprintf(fp, "do_psnr: %ld\n", now2 - now); 
     // printf("******do_psnr: start: %ld, end: %ld******\n", now, now2);
-    av_log(ctx, AV_LOG_INFO, "******do_psnr: start: %ld, end: %ld******\n", now, now2);
+    av_log(ctx, AV_LOG_INFO, "\n******do_psnr: start: %ld, end: %ld******\n", now, now2);
     fclose(fp); 
     //TODO: R&N Delete end
 
