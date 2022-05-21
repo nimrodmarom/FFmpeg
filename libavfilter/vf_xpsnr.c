@@ -611,7 +611,8 @@ static int do_xpsnr (FFFrameSync *fs)
   }  //TODO: R&N Delete begin 
   end = clock();
   av_log(ctx, AV_LOG_INFO, "\n******do_xpsnr: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
-  //TODO: R&N Delete end  return ff_filter_frame (ctx->outputs[0], master);
+  //TODO: R&N Delete end  
+  return ff_filter_frame (ctx->outputs[0], master);
 }
 
 static av_cold int init (AVFilterContext *ctx)

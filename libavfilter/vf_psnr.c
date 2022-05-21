@@ -340,7 +340,8 @@ static av_cold int init(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     end = clock(); 
     av_log(ctx, AV_LOG_INFO, "\n******init: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
-    //TODO: R&N Delete end    return 0;
+    //TODO: R&N Delete end    
+    return 0;
 }
 
 static int query_formats(AVFilterContext *ctx)
@@ -373,7 +374,8 @@ static int query_formats(AVFilterContext *ctx)
         //TODO: R&N Delete begin
         end = clock(); 
         av_log(ctx, AV_LOG_INFO, "\n******query_formats: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
-        //TODO: R&N Delete end        return AVERROR(ENOMEM);
+        //TODO: R&N Delete end        
+        return AVERROR(ENOMEM);
     }
 
     a = ff_set_common_formats(ctx, fmts_list);
@@ -381,7 +383,8 @@ static int query_formats(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     end = clock(); 
     av_log(ctx, AV_LOG_INFO, "\n******query_formats: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
-    //TODO: R&N Delete end    return a;
+    //TODO: R&N Delete end    
+    return a;
 }
 
 static int config_input_ref(AVFilterLink *inlink)
@@ -466,7 +469,8 @@ static int config_output(AVFilterLink *outlink)
     av_log(outlink->src, AV_LOG_INFO, "\n******config_output: begin******\n");
     // current time
     start = clock();
-    //TODO: R&N Delete end    PSNRContext *s = ctx->priv;
+    //TODO: R&N Delete end    
+    PSNRContext *s = ctx->priv;
     AVFilterLink *mainlink = ctx->inputs[0];
     int ret;
 
