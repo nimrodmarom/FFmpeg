@@ -18,7 +18,6 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with FFmpeg; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- // #comment 
 /**
  * @file
  * Caculate the PSNR between two input videos.
@@ -85,40 +84,17 @@ static inline double get_psnr(double mse, uint64_t nb_frames, int max)
 
 static uint64_t sse_line_8bit(const uint8_t *main_line,  const uint8_t *ref_line, int outw)
 {
-    //TODO: R&N Delete begin
-    // create text file and open it
-    time_t now, now2;
-    av_log(ctx, AV_LOG_INFO, "\n******sse_line_8bit: begin******\n");
-    // current time
-    now = time(NULL);
-    //TODO: R&N Delete end
-
     int j;
     unsigned m2 = 0;
 
     for (j = 0; j < outw; j++)
         m2 += pow_2(main_line[j] - ref_line[j]);
-    
-    //TODO: R&N Delete begin
-    // get the current time, and print the difference between current and now
-    now2 = time(NULL);
-    av_log(ctx, AV_LOG_INFO, "\n******sse_line_8bit: start: %ld, end: %ld******\n", now, now2);
-
-    //TODO: R&N Delete end
 
     return m2;
 }
 
 static uint64_t sse_line_16bit(const uint8_t *_main_line, const uint8_t *_ref_line, int outw)
 {
-    //TODO: R&N Delete begin
-    // create text file and open it
-    time_t now, now2;
-    av_log(ctx, AV_LOG_INFO, "\n******sse_line_16bit: begin******\n");
-    // current time
-    now = time(NULL);
-    //TODO: R&N Delete end
-
     int j;
     uint64_t m2 = 0;
     const uint16_t *main_line = (const uint16_t *) _main_line;
@@ -126,11 +102,6 @@ static uint64_t sse_line_16bit(const uint8_t *_main_line, const uint8_t *_ref_li
 
     for (j = 0; j < outw; j++)
         m2 += pow_2(main_line[j] - ref_line[j]);
-
-    //TODO: R&N Delete begin
-    now2 = time(NULL);
-    av_log(ctx, AV_LOG_INFO, "\n******sse_line_16bit: start: %ld, end: %ld******\n", now, now2);
-    //TODO: R&N Delete end
 
     return m2;
 }
@@ -187,7 +158,7 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
     return 0;
 }
 
-static void set_meta(AVDictionary **metadata, const char *key, char comp, float d)
+static void set_meta(AVFilterContext *ctx, AVDictionary **metadata, const char *key, char comp, float d)
 {
     //TODO: R&N Delete begin
     // create text file and open it
@@ -215,6 +186,8 @@ static void set_meta(AVDictionary **metadata, const char *key, char comp, float 
 
 static int do_psnr(FFFrameSync *fs)
 {
+    AVFilterContext *ctx = fs->parent;
+
     //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
@@ -223,7 +196,6 @@ static int do_psnr(FFFrameSync *fs)
     now = time(NULL);
     //TODO: R&N Delete end
 
-    AVFilterContext *ctx = fs->parent;
     PSNRContext *s = ctx->priv;
     AVFrame *master, *ref;
     double comp_mse[4], mse = 0.;
@@ -275,11 +247,11 @@ static int do_psnr(FFFrameSync *fs)
 
     for (int j = 0; j < s->nb_components; j++) {
         int c = s->is_rgb ? s->rgba_map[j] : j;
-        set_meta(metadata, "lavfi.psnr.mse.", s->comps[j], comp_mse[c]);
-        set_meta(metadata, "lavfi.psnr.psnr.", s->comps[j], get_psnr(comp_mse[c], 1, s->max[c]));
+        set_meta(ctx, metadata, "lavfi.psnr.mse.", s->comps[j], comp_mse[c]);
+        set_meta(ctx, metadata, "lavfi.psnr.psnr.", s->comps[j], get_psnr(comp_mse[c], 1, s->max[c]));
     }
-    set_meta(metadata, "lavfi.psnr.mse_avg", 0, mse);
-    set_meta(metadata, "lavfi.psnr.psnr_avg", 0, get_psnr(mse, 1, s->average_max));
+    set_meta(ctx, metadata, "lavfi.psnr.mse_avg", 0, mse);
+    set_meta(ctx, metadata, "lavfi.psnr.psnr_avg", 0, get_psnr(mse, 1, s->average_max));
 
     if (s->stats_file) {
         if (s->stats_version == 2 && !s->stats_header_written) {
@@ -498,6 +470,7 @@ static int config_input_ref(AVFilterLink *inlink)
 
 static int config_output(AVFilterLink *outlink)
 {
+    AVFilterContext *ctx = outlink->src;  
     //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
@@ -505,8 +478,6 @@ static int config_output(AVFilterLink *outlink)
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
-
-    AVFilterContext *ctx = outlink->src;
     PSNRContext *s = ctx->priv;
     AVFilterLink *mainlink = ctx->inputs[0];
     int ret;
