@@ -806,7 +806,7 @@ static int config_output (AVFilterLink *outLink)
   //TODO: R&N Delete begin
   // create text file and open it
   time_t now, now2;
-  av_log(outlink->src, AV_LOG_INFO, "\n******config_output: begin******\n");
+  av_log(outLink->src, AV_LOG_INFO, "\n******config_output: begin******\n");
   // current time
   now = time(NULL);
   //TODO: R&N Delete end
@@ -823,7 +823,7 @@ static int config_output (AVFilterLink *outLink)
 
   //TODO: R&N Delete begin
   now2 = time(NULL); 
-  av_log(outlink->src, AV_LOG_INFO, "\n******config_output: end: %ld, end2: %ld******\n", now, now2);
+  av_log(outLink->src, AV_LOG_INFO, "\n******config_output: end: %ld, end2: %ld******\n", now, now2);
   //TODO: R&N Delete end
 
   return 0;
