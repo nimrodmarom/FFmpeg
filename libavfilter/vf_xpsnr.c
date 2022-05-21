@@ -237,15 +237,15 @@ static inline double calcSquaredErrorAndWeight (AVFilterContext *ctx, XPSNRConte
   const int   yAct = (offsetY > 0 ? 0 : bVal);  /* R&N: The index to iterate of the block, Y, the adjacents. edge case if offSet = 0 */
   const int   wAct = (offsetX + blockWidth  < (uint32_t) s->planeWidth [0] ? (int) blockWidth  : (int) blockWidth  - bVal);
   const int   hAct = (offsetY + blockHeight < (uint32_t) s->planeHeight[0] ? (int) blockHeight : (int) blockHeight - bVal);
-
+/*
   //TODO: R&N Delete begin
-  // create text file and open it
+  //create text file and open it
   time_t now, now2;
   av_log(ctx, AV_LOG_INFO, "\n******calcSquaredErrorAndWeight: begin******\n");
   // current time
   now = time(NULL);
   //TODO: R&N Delete end
-
+*/
   const double sse = (double) calcSquaredError (s, o, strideOrg,
                                                 r, strideRec,
                                                 blockWidth, blockHeight); /* R&N: sum squard errors between 2 block, original and reconstructed */
@@ -326,12 +326,12 @@ static inline double calcSquaredErrorAndWeight (AVFilterContext *ctx, XPSNRConte
   if (*msAct < (double)(1 << (bitDepth - 6))) *msAct = (double)(1 << (bitDepth - 6));
 
   *msAct *= *msAct; /* because SSE is squared */ /* R&N: alpha k*/
-
+/*
   //TODO: R&N Delete begin
   now2 = time(NULL);
   av_log(ctx, AV_LOG_INFO, "\n******calcSquaredErrorAndWeight: start: %ld, end: %ld******\n", now, now2); 
   //TODO: R&N Delete end
-
+*/
   /* return nonweighted sum of squared errors */
   return sse;
 }
@@ -369,7 +369,7 @@ static int getWSSE (AVFilterContext *ctx, int16_t **org, int16_t **orgM1, int16_
   double* const sseLuma = s->sseLuma;
   double* const weights = s->weights;
   int c;
-
+/*
   //TODO: R&N Delete begin
   // create text file and open it
   time_t now, now2;
@@ -377,7 +377,7 @@ static int getWSSE (AVFilterContext *ctx, int16_t **org, int16_t **orgM1, int16_
   // current time
   now = time(NULL);
   //TODO: R&N Delete end
-
+*/
   if ((wsse64 == NULL) || (s->depth < 6) || (s->depth > 16) || (s->numComps <= 0) || (s->numComps > 3) || (W == 0) || (H == 0))
   {
     av_log (ctx, AV_LOG_ERROR, "Error in XPSNR routine: invalid argument(s).\n");
@@ -497,12 +497,12 @@ static int getWSSE (AVFilterContext *ctx, int16_t **org, int16_t **orgM1, int16_
       wsse64[c] = (wsseChroma <= 0.0 ? 0 : (uint64_t)(wsseChroma * avgAct + 0.5));
     }
   } /* for c */
-
+/*
   //TODO: R&N Delete begin
   now2 = time(NULL);
   av_log(ctx, AV_LOG_INFO, "\n******getWSSE: start: %ld, end: %ld******\n", now, now2); 
   //TODO: R&N Delete end
-
+*/
   return 0;
 }
 
@@ -523,7 +523,7 @@ static int do_xpsnr (FFFrameSync *fs)
   uint64_t wsse64[3] = {0, 0, 0};
   double curXPSNR[3] = {INFINITY, INFINITY, INFINITY};
   int c, retValue;
-
+/*
   //TODO: R&N Delete begin
   // create text file and open it
   time_t now, now2;
@@ -531,7 +531,7 @@ static int do_xpsnr (FFFrameSync *fs)
   // current time
   now = time(NULL);
   //TODO: R&N Delete end
-
+*/
 
   if ((retValue = ff_framesync_dualinput_get (fs, &master, &ref)) < 0) return retValue;
   if (ref == NULL) return ff_filter_frame (ctx->outputs[0], master);
@@ -617,19 +617,19 @@ static int do_xpsnr (FFFrameSync *fs)
       fprintf (s->statsFile, "  XPSNR %c: %3.4f", s->comps[c], curXPSNR[c]);
     }
     fprintf (s->statsFile, "\n");
-  }
+  }/*
   //TODO: R&N Delete begin 
   now2 = time(NULL);
   av_log(ctx, AV_LOG_INFO, "\n******do_xpsnr: start: %ld, end: %ld******\n", now, now2);
   //TODO: R&N Delete end
-  return ff_filter_frame (ctx->outputs[0], master);
+*/  return ff_filter_frame (ctx->outputs[0], master);
 }
 
 static av_cold int init (AVFilterContext *ctx)
 {
   XPSNRContext* const s = ctx->priv;
   int c;
-
+/*
   //TODO: R&N Delete begin
   // create text file and open it
   time_t now, now2;
@@ -637,7 +637,7 @@ static av_cold int init (AVFilterContext *ctx)
   // current time
   now = time(NULL);
   //TODO: R&N Delete end
-
+*/
   if (s->statsFileStr != NULL)
   {
     if (!strcmp (s->statsFileStr, "-"))  /* no statistics file, take stdout */
@@ -675,12 +675,12 @@ static av_cold int init (AVFilterContext *ctx)
     s->andIsInf[c] = true;
   }
 
-  s->fs.on_event = do_xpsnr;
+  s->fs.on_event = do_xpsnr;/*
   //TODO: R&N Delete begin
   now2 = time(NULL); 
   av_log(ctx, AV_LOG_INFO, "\n******init: start: %ld, end: %ld******\n", now, now2);
   //TODO: R&N Delete end
-
+*/
   return 0;
 }
 
@@ -701,7 +701,7 @@ static int query_formats (AVFilterContext *ctx)
     AV_PIX_FMT_GBRAP, AV_PIX_FMT_GBRAP10, AV_PIX_FMT_GBRAP12, AV_PIX_FMT_GBRAP16,
     AV_PIX_FMT_NONE
   };
-
+/*
   //TODO: R&N Delete begin
   // create text file and open it
   time_t now, now2;
@@ -709,16 +709,16 @@ static int query_formats (AVFilterContext *ctx)
   // current time
   now = time(NULL);
   //TODO: R&N Delete end
-
+*/
   AVFilterFormats *fmts_list = ff_make_format_list (pix_fmts);
 
   if (fmts_list == NULL) return AVERROR (ENOMEM);
-
+/*
   //TODO: R&N Delete begin
   now2 = time(NULL); 
   av_log(ctx, AV_LOG_INFO, "\n******query_formats: start: %ld, end: %ld******\n", now, now2);
   //TODO: R&N Delete end
-
+*/
   return ff_set_common_formats (ctx, fmts_list);
 }
 
@@ -727,7 +727,7 @@ static int config_input_ref (AVFilterLink *inLink)
   const AVPixFmtDescriptor *desc = av_pix_fmt_desc_get (inLink->format);
   AVFilterContext  *ctx = inLink->dst;
   XPSNRContext* const s = ctx->priv;
-  int cpu_flags;
+  int cpu_flags;/*
   //TODO: R&N Delete begin
   // create text file and open it
   time_t now, now2;
@@ -735,7 +735,7 @@ static int config_input_ref (AVFilterLink *inLink)
   // current time
   now = time(NULL);
   //TODO: R&N Delete end
-
+*/
   if ((ctx->inputs[0]->w != ctx->inputs[1]->w) ||
       (ctx->inputs[0]->h != ctx->inputs[1]->h))
   {
@@ -790,12 +790,12 @@ static int config_input_ref (AVFilterLink *inLink)
     s->dsp.diff2nd_func = diff2nd_SIMD;
 #endif
   }
-
+/*
   //TODO: R&N Delete begin
   now2 = time(NULL); 
   av_log(inLink->dst, AV_LOG_INFO, "\n******config_input_ref: start: %ld, end: %ld******\n", now, now2);
   //TODO: R&N Delete end
-  return 0;
+*/  return 0;
 }
 
 static int config_output (AVFilterLink *outLink)
@@ -804,7 +804,7 @@ static int config_output (AVFilterLink *outLink)
   AVFilterLink *mainLink = ctx->inputs[0];
   XPSNRContext *s = ctx->priv;
   int retValue;
-
+/*
   //TODO: R&N Delete begin
   // create text file and open it
   time_t now, now2;
@@ -812,7 +812,7 @@ static int config_output (AVFilterLink *outLink)
   // current time
   now = time(NULL);
   //TODO: R&N Delete end
-
+*/
   if ((retValue = ff_framesync_init_dualinput (&s->fs, ctx)) < 0) return retValue;
 
   outLink->w = mainLink->w;
@@ -822,19 +822,19 @@ static int config_output (AVFilterLink *outLink)
   outLink->time_base = mainLink->time_base;
 
   if ((retValue = ff_framesync_configure (&s->fs)) < 0) return retValue;
-
+/*
   //TODO: R&N Delete begin
   now2 = time(NULL); 
   av_log(outLink->src, AV_LOG_INFO, "\n******config_output: start: %ld, end: %ld******\n", now, now2);
   //TODO: R&N Delete end
-
+*/
   return 0;
 }
 
 static int activate (AVFilterContext *ctx)
 {
   XPSNRContext *s = ctx->priv;
-
+/*
   //TODO: R&N Delete begin
   // create text file and open it
   time_t now, now2;
@@ -842,13 +842,13 @@ static int activate (AVFilterContext *ctx)
   // current time
   now = time(NULL);
   //TODO: R&N Delete end
-
-  return ff_framesync_activate (&s->fs);
+*/
+  return ff_framesync_activate (&s->fs);/*
   //TODO: R&N Delete begin
   now2 = time(NULL); 
   av_log(ctx, AV_LOG_INFO, "\n******activate: start: %ld, end: %ld******\n", now, now2);
   //TODO: R&N Delete end
-}
+*/}
 
 static av_cold void uninit (AVFilterContext *ctx)
 {
@@ -862,7 +862,7 @@ static av_cold void uninit (AVFilterContext *ctx)
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
-
+*/
 
   if (s->numFrames64 > 0) /* print out overall component-wise XPSNR average */
   {
@@ -923,13 +923,13 @@ static av_cold void uninit (AVFilterContext *ctx)
       if (&s->bufRec[c] != NULL) av_freep (&s->bufRec[c]);
     }
   }
-
+/*
   //TODO: R&N Delete begin
     // print the difference between now and current time
     now2 = time(NULL); 
     av_log(ctx, AV_LOG_INFO, "\n******uninit: start: %ld, end: %ld******\n", now, now2);
     //TODO: R&N Delete end
-}
+*/}
 
 static const AVFilterPad xpsnr_inputs[] =
 {

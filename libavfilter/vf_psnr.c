@@ -125,14 +125,15 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
     ThreadData *td = arg;
     uint64_t *score = td->score[jobnr];
 
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
     av_log(ctx, AV_LOG_INFO, "\n******compute_images_mse: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
-
+*/
     for (int c = 0; c < td->nb_components; c++) {
         const int outw = td->planewidth[c];
         const int outh = td->planeheight[c];
@@ -150,11 +151,12 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
         }
         score[c] = m;
     }
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     now2 = time(NULL);
     av_log(ctx, AV_LOG_INFO, "\n******compute_images_mse: start: %ld, end: %ld******\n", now, now2);
     //TODO: R&N Delete end
-
+*/
     return 0;
 }
 
@@ -162,14 +164,15 @@ static void set_meta(AVFilterContext *ctx, AVDictionary **metadata, const char *
 {
     char value[128];
 
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
     av_log(ctx, AV_LOG_INFO, "\n******set_meta: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
-
+*/
     snprintf(value, sizeof(value), "%f", d);
     if (comp) {
         char key2[128];
@@ -179,11 +182,12 @@ static void set_meta(AVFilterContext *ctx, AVDictionary **metadata, const char *
         av_dict_set(metadata, key, value, 0);
     }
 
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     now2 = time(NULL);
     av_log(ctx, AV_LOG_INFO, "\n******set_meta: start: %ld, end: %ld******\n", now, now2); 
     //TODO: R&N Delete end
-}
+*/}
 
 static int do_psnr(FFFrameSync *fs)
 {
@@ -199,14 +203,15 @@ static int do_psnr(FFFrameSync *fs)
 
     int a;
 
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
     av_log(ctx, AV_LOG_INFO, "\n******do_psnr: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
-
+*/
     ret = ff_framesync_dualinput_get(fs, &master, &ref);
     if (ret < 0)
         return ret;
@@ -298,24 +303,26 @@ static int do_psnr(FFFrameSync *fs)
     }
     a = ff_filter_frame(ctx->outputs[0], master);
     
-    //TODO: R&N Delete begin 
+  /*
+  //TODO: R&N Delete begin 
     now2 = time(NULL);
     av_log(ctx, AV_LOG_INFO, "\n******do_psnr: start: %ld, end: %ld******\n", now, now2);
     //TODO: R&N Delete end
-
+*/
     return a;
 }
 
 static av_cold int init(AVFilterContext *ctx)
 {
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
     av_log(ctx, AV_LOG_INFO, "\n******init: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
-
+*/
     PSNRContext *s = ctx->priv;
 
     s->min_mse = +INFINITY;
@@ -343,11 +350,12 @@ static av_cold int init(AVFilterContext *ctx)
     }
 
     s->fs.on_event = do_psnr;
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     now2 = time(NULL); 
     av_log(ctx, AV_LOG_INFO, "\n******init: start: %ld, end: %ld******\n", now, now2);
     //TODO: R&N Delete end
-    return 0;
+*/    return 0;
 }
 
 static int query_formats(AVFilterContext *ctx)
@@ -368,30 +376,33 @@ static int query_formats(AVFilterContext *ctx)
         AV_PIX_FMT_NONE
     };
 
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
     av_log(ctx, AV_LOG_INFO, "\n******query_formats: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
-
+*/
     AVFilterFormats *fmts_list = ff_make_format_list(pix_fmts);
     if (!fmts_list){
-        //TODO: R&N Delete begin
+      /*
+  //TODO: R&N Delete begin
         now2 = time(NULL); 
         av_log(ctx, AV_LOG_INFO, "\n******query_formats: start: %ld, end: %ld******\n", now, now2);
         //TODO: R&N Delete end
-        return AVERROR(ENOMEM);
+*/        return AVERROR(ENOMEM);
     }
 
     a = ff_set_common_formats(ctx, fmts_list);
 
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     now2 = time(NULL); 
     av_log(ctx, AV_LOG_INFO, "\n******query_formats: start: %ld, end: %ld******\n", now, now2);
     //TODO: R&N Delete end
-    return a;
+*/    return a;
 }
 
 static int config_input_ref(AVFilterLink *inlink)
@@ -402,14 +413,15 @@ static int config_input_ref(AVFilterLink *inlink)
     double average_max;
     unsigned sum;
     int j;
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
     av_log(inlink->dst, AV_LOG_INFO, "\n******config_input_ref: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
-
+*/
     s->nb_threads = ff_filter_get_nb_threads(ctx);
     s->nb_components = desc->nb_components;
     if (ctx->inputs[0]->w != ctx->inputs[1]->w ||
@@ -461,25 +473,27 @@ static int config_input_ref(AVFilterLink *inlink)
             return AVERROR(ENOMEM);
     }
 
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     now2 = time(NULL); 
     av_log(inlink->dst, AV_LOG_INFO, "\n******config_input_ref: start: %ld, end: %ld******\n", now, now2);
     //TODO: R&N Delete end
-
+*/
     return 0;
 }
 
 static int config_output(AVFilterLink *outlink)
 {
     AVFilterContext *ctx = outlink->src;  
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
     av_log(outlink->src, AV_LOG_INFO, "\n******config_output: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
-    PSNRContext *s = ctx->priv;
+*/    PSNRContext *s = ctx->priv;
     AVFilterLink *mainlink = ctx->inputs[0];
     int ret;
 
@@ -502,11 +516,12 @@ static int config_output(AVFilterLink *outlink)
                mainlink->time_base.num, mainlink->time_base.den,
                ctx->inputs[1]->time_base.num, ctx->inputs[1]->time_base.den);
     
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     now2 = time(NULL); 
     av_log(outlink->src, AV_LOG_INFO, "\n******config_output: start: %ld, end: %ld******\n", now, now2);
     //TODO: R&N Delete end
-
+*/
     return 0;
 }
 
@@ -514,33 +529,36 @@ static int activate(AVFilterContext *ctx)
 {
     PSNRContext *s = ctx->priv;
 
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
     av_log(ctx, AV_LOG_INFO, "\n******activate: begin******\n");  
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
-
+*/
     return ff_framesync_activate(&s->fs);
-     //TODO: R&N Delete begin
+   /*
+  //TODO: R&N Delete begin
     now2 = time(NULL); 
     av_log(ctx, AV_LOG_INFO, "\n******activate: start: %ld, end: %ld******\n", now, now2);
     //TODO: R&N Delete end
-}
+*/}
 
 static av_cold void uninit(AVFilterContext *ctx)
 {
     PSNRContext *s = ctx->priv;
 
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
     av_log(ctx, AV_LOG_INFO, "\n******uninit: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
-
+*/
     if (s->nb_frames > 0) {
         int j;
         char buf[256];
@@ -566,12 +584,13 @@ static av_cold void uninit(AVFilterContext *ctx)
     if (s->stats_file && s->stats_file != stdout)
         fclose(s->stats_file);
 
-    //TODO: R&N Delete begin
+  /*
+  //TODO: R&N Delete begin
     // print the difference between now and current time
     now2 = time(NULL); 
     av_log(ctx, AV_LOG_INFO, "\n******uninit: start: %ld, end: %ld******\n", now, now2);
     //TODO: R&N Delete end
-    
+*/    
 
 }
 
