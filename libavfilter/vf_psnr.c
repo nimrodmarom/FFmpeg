@@ -89,8 +89,7 @@ static uint64_t sse_line_8bit(const uint8_t *main_line,  const uint8_t *ref_line
     // create text file and open it
     FILE *fp; 
     time_t now, now2;
-    const char *filename = "psnr.txt"; 
-    fp = fopen(filename, "a"); 
+    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
         exit(1); 
@@ -123,8 +122,7 @@ static uint64_t sse_line_16bit(const uint8_t *_main_line, const uint8_t *_ref_li
     // create text file and open it
     FILE *fp; 
     time_t now, now2;
-    const char *filename = "psnr.txt"; 
-    fp = fopen(filename, "a"); 
+    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
         exit(1); 
@@ -173,7 +171,8 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
     FILE *fp; 
     time_t now, now2;
     const char *filename = "psnr.txt"; 
-    fp = fopen(filename, "a"); 
+    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
+    
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
         exit(1); 
@@ -219,8 +218,7 @@ static void set_meta(AVDictionary **metadata, const char *key, char comp, float 
     // create text file and open it
     FILE *fp; 
     time_t now, now2;
-    const char *filename = "psnr.txt"; 
-    fp = fopen(filename, "a"); 
+    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
         exit(1); 
@@ -254,8 +252,7 @@ static int do_psnr(FFFrameSync *fs)
     // create text file and open it
     FILE *fp; 
     time_t now, now2;
-    const char *filename = "psnr.txt"; 
-    fp = fopen(filename, "a"); 
+    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
         exit(1); 
@@ -380,8 +377,7 @@ static av_cold int init(AVFilterContext *ctx)
     // create text file and open it
     FILE *fp; 
     time_t now, now2;
-    const char *filename = "psnr.txt"; 
-    fp = fopen(filename, "a"); 
+    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
         exit(1); 
@@ -432,8 +428,7 @@ static int query_formats(AVFilterContext *ctx)
     // create text file and open it
     FILE *fp; 
     time_t now, now2;
-    const char *filename = "psnr.txt"; 
-    fp = fopen(filename, "a"); 
+    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
         exit(1); 
@@ -485,8 +480,7 @@ static int config_input_ref(AVFilterLink *inlink)
     // create text file and open it
     FILE *fp; 
     time_t now, now2;
-    const char *filename = "psnr.txt"; 
-    fp = fopen(filename, "a"); 
+    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
         exit(1); 
@@ -569,8 +563,7 @@ static int config_output(AVFilterLink *outlink)
     // create text file and open it
     FILE *fp; 
     time_t now, now2;
-    const char *filename = "psnr.txt"; 
-    fp = fopen(filename, "a"); 
+    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
         exit(1); 
@@ -619,8 +612,7 @@ static int activate(AVFilterContext *ctx)
     // create text file and open it
     FILE *fp; 
     time_t now, now2;
-    const char *filename = "psnr.txt"; 
-    fp = fopen(filename, "a"); 
+    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
         exit(1); 
@@ -645,8 +637,7 @@ static av_cold void uninit(AVFilterContext *ctx)
     // create text file and open it
     FILE *fp; 
     time_t now, now2;
-    const char *filename = "psnr.txt"; 
-    fp = fopen(filename, "a"); 
+    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
     if (fp == NULL) { 
         printf("Error opening file!\n"); 
         exit(1); 
