@@ -87,14 +87,8 @@ static uint64_t sse_line_8bit(const uint8_t *main_line,  const uint8_t *ref_line
 {
     //TODO: R&N Delete begin
     // create text file and open it
-    FILE *fp; 
     time_t now, now2;
-    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
-    if (fp == NULL) { 
-        printf("Error opening file!\n"); 
-        exit(1); 
-    } 
-    fprintf(fp, "sse_line_8bit: begin\n"); 
+    av_log(ctx, AV_LOG_INFO, "\n******sse_line_8bit: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
@@ -108,9 +102,8 @@ static uint64_t sse_line_8bit(const uint8_t *main_line,  const uint8_t *ref_line
     //TODO: R&N Delete begin
     // get the current time, and print the difference between current and now
     now2 = time(NULL);
+    av_log(ctx, AV_LOG_INFO, "\n******sse_line_8bit: start: %ld, end: %ld******\n", now, now2);
 
-    fprintf(fp, "sse_line_8bit: %ld\n", now2 - now); 
-    fclose(fp); 
     //TODO: R&N Delete end
 
     return m2;
@@ -120,14 +113,8 @@ static uint64_t sse_line_16bit(const uint8_t *_main_line, const uint8_t *_ref_li
 {
     //TODO: R&N Delete begin
     // create text file and open it
-    FILE *fp; 
     time_t now, now2;
-    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
-    if (fp == NULL) { 
-        printf("Error opening file!\n"); 
-        exit(1); 
-    } 
-    fprintf(fp, "sse_line_16bit: begin\n"); 
+    av_log(ctx, AV_LOG_INFO, "\n******sse_line_16bit: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
@@ -142,9 +129,7 @@ static uint64_t sse_line_16bit(const uint8_t *_main_line, const uint8_t *_ref_li
 
     //TODO: R&N Delete begin
     now2 = time(NULL);
- 
-    fprintf(fp, "sse_line_16bit: %ld\n", now2 - now); 
-    fclose(fp); 
+    av_log(ctx, AV_LOG_INFO, "\n******sse_line_16bit: start: %ld, end: %ld******\n", now, now2);
     //TODO: R&N Delete end
 
     return m2;
@@ -168,16 +153,8 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
 {
     //TODO: R&N Delete begin
     // create text file and open it
-    FILE *fp; 
     time_t now, now2;
-    const char *filename = "psnr.txt"; 
-    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
-    
-    if (fp == NULL) { 
-        printf("Error opening file!\n"); 
-        exit(1); 
-    } 
-    fprintf(fp, "compute_images_mse: begin\n");
+    av_log(ctx, AV_LOG_INFO, "\n******compute_images_mse: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
@@ -204,9 +181,7 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
     }
     //TODO: R&N Delete begin
     now2 = time(NULL);
-     
-    fprintf(fp, "compute_images_mse: %ld\n", now2 - now); 
-    fclose(fp); 
+    av_log(ctx, AV_LOG_INFO, "\n******compute_images_mse: start: %ld, end: %ld******\n", now, now2);
     //TODO: R&N Delete end
 
     return 0;
@@ -216,14 +191,8 @@ static void set_meta(AVDictionary **metadata, const char *key, char comp, float 
 {
     //TODO: R&N Delete begin
     // create text file and open it
-    FILE *fp; 
     time_t now, now2;
-    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
-    if (fp == NULL) { 
-        printf("Error opening file!\n"); 
-        exit(1); 
-    } 
-    fprintf(fp, "set_meta: begin\n");
+    av_log(ctx, AV_LOG_INFO, "\n******set_meta: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
@@ -240,9 +209,7 @@ static void set_meta(AVDictionary **metadata, const char *key, char comp, float 
 
     //TODO: R&N Delete begin
     now2 = time(NULL);
- 
-    fprintf(fp, "set_meta: %ld\n", now2 - now); 
-    fclose(fp); 
+    av_log(ctx, AV_LOG_INFO, "\n******set_meta: start: %ld, end: %ld******\n", now, now2); 
     //TODO: R&N Delete end
 }
 
@@ -250,14 +217,8 @@ static int do_psnr(FFFrameSync *fs)
 {
     //TODO: R&N Delete begin
     // create text file and open it
-    FILE *fp; 
     time_t now, now2;
-    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
-    if (fp == NULL) { 
-        printf("Error opening file!\n"); 
-        exit(1); 
-    } 
-    fprintf(fp, "do_psnr: begin\n");
+    av_log(ctx, AV_LOG_INFO, "\n******do_psnr: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
@@ -364,10 +325,7 @@ static int do_psnr(FFFrameSync *fs)
     
     //TODO: R&N Delete begin 
     now2 = time(NULL);
-    // fprintf(fp, "do_psnr: %ld\n", now2 - now); 
-    // printf("******do_psnr: start: %ld, end: %ld******\n", now, now2);
     av_log(ctx, AV_LOG_INFO, "\n******do_psnr: start: %ld, end: %ld******\n", now, now2);
-    fclose(fp); 
     //TODO: R&N Delete end
 
     return a;
@@ -377,14 +335,8 @@ static av_cold int init(AVFilterContext *ctx)
 {
     //TODO: R&N Delete begin
     // create text file and open it
-    FILE *fp; 
     time_t now, now2;
-    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
-    if (fp == NULL) { 
-        printf("Error opening file!\n"); 
-        exit(1); 
-    } 
-    fprintf(fp, "init: begin\n");
+    av_log(ctx, AV_LOG_INFO, "\n******init: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
@@ -418,8 +370,7 @@ static av_cold int init(AVFilterContext *ctx)
     s->fs.on_event = do_psnr;
     //TODO: R&N Delete begin
     now2 = time(NULL); 
-    fprintf(fp, "init: %ld\n", now2 - now); 
-    fclose(fp); 
+    av_log(ctx, AV_LOG_INFO, "\n******init: end: %ld, end2: %ld******\n", now, now2);
     //TODO: R&N Delete end
     return 0;
 }
@@ -428,14 +379,8 @@ static int query_formats(AVFilterContext *ctx)
 {
     //TODO: R&N Delete begin
     // create text file and open it
-    FILE *fp; 
     time_t now, now2;
-    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
-    if (fp == NULL) { 
-        printf("Error opening file!\n"); 
-        exit(1); 
-    } 
-    fprintf(fp, "query_formats: begin\n");
+    av_log(ctx, AV_LOG_INFO, "\n******query_formats: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
@@ -470,8 +415,7 @@ static int query_formats(AVFilterContext *ctx)
 
     //TODO: R&N Delete begin
     now2 = time(NULL); 
-    fprintf(fp, "query_formats: %ld\n", now2 - now); 
-    fclose(fp); 
+    av_log(ctx, AV_LOG_INFO, "\n******query_formats: end: %ld, end2: %ld******\n", now, now2);
     //TODO: R&N Delete end
     return a;
 }
@@ -480,14 +424,8 @@ static int config_input_ref(AVFilterLink *inlink)
 {
     //TODO: R&N Delete begin
     // create text file and open it
-    FILE *fp; 
     time_t now, now2;
-    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
-    if (fp == NULL) { 
-        printf("Error opening file!\n"); 
-        exit(1); 
-    } 
-    fprintf(fp, "config_input_ref: begin\n");
+    av_log(inlink->dst, AV_LOG_INFO, "\n******config_input_ref: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
@@ -552,8 +490,7 @@ static int config_input_ref(AVFilterLink *inlink)
 
     //TODO: R&N Delete begin
     now2 = time(NULL); 
-    fprintf(fp, "config_input_ref: %ld\n", now2 - now); 
-    fclose(fp); 
+    av_log(inlink->dst, AV_LOG_INFO, "\n******config_input_ref: end: %ld, end2: %ld******\n", now, now2);
     //TODO: R&N Delete end
 
     return 0;
@@ -563,14 +500,8 @@ static int config_output(AVFilterLink *outlink)
 {
     //TODO: R&N Delete begin
     // create text file and open it
-    FILE *fp; 
     time_t now, now2;
-    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
-    if (fp == NULL) { 
-        printf("Error opening file!\n"); 
-        exit(1); 
-    } 
-    fprintf(fp, "config_output: begin\n");
+    av_log(outlink->src, AV_LOG_INFO, "\n******config_output: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
@@ -601,8 +532,7 @@ static int config_output(AVFilterLink *outlink)
     
     //TODO: R&N Delete begin
     now2 = time(NULL); 
-    fprintf(fp, "config_output: %ld\n", now2 - now); 
-    fclose(fp); 
+    av_log(outlink->src, AV_LOG_INFO, "\n******config_output: end: %ld, end2: %ld******\n", now, now2);
     //TODO: R&N Delete end
 
     return 0;
@@ -612,14 +542,8 @@ static int activate(AVFilterContext *ctx)
 {
     //TODO: R&N Delete begin
     // create text file and open it
-    FILE *fp; 
     time_t now, now2;
-    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
-    if (fp == NULL) { 
-        printf("Error opening file!\n"); 
-        exit(1); 
-    } 
-    fprintf(fp, "activate: begin\n");
+    av_log(ctx, AV_LOG_INFO, "\n******activate: begin******\n");   
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
@@ -628,8 +552,7 @@ static int activate(AVFilterContext *ctx)
     return ff_framesync_activate(&s->fs);
      //TODO: R&N Delete begin
     now2 = time(NULL); 
-    fprintf(fp, "activate: %ld\n", now2 - now); 
-    fclose(fp); 
+    av_log(ctx, AV_LOG_INFO, "\n******activate: end: %ld, end2: %ld******\n", now, now2);
     //TODO: R&N Delete end
 }
 
@@ -637,14 +560,8 @@ static av_cold void uninit(AVFilterContext *ctx)
 {
     //TODO: R&N Delete begin
     // create text file and open it
-    FILE *fp; 
     time_t now, now2;
-    fp = fopen("C:\\Users\\nimrodma\\OneDrive - Intel Corporation\\Desktop\\Industrial Project\\Profiling-Files\\psnr.txt", "a"); 
-    if (fp == NULL) { 
-        printf("Error opening file!\n"); 
-        exit(1); 
-    } 
-    fprintf(fp, "uninit: begin\n");
+    av_log(ctx, AV_LOG_INFO, "\n******uninit: begin******\n");
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
@@ -679,8 +596,7 @@ static av_cold void uninit(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     // print the difference between now and current time
     now2 = time(NULL); 
-    fprintf(fp, "uninit: %ld\n", now2 - now); 
-    fclose(fp); 
+    av_log(ctx, AV_LOG_INFO, "\n******uninit: end: %ld, end2: %ld******\n", now, now2);
     //TODO: R&N Delete end
     
 
