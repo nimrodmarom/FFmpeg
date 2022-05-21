@@ -365,6 +365,7 @@ static int do_psnr(FFFrameSync *fs)
     //TODO: R&N Delete begin 
     now2 = time(NULL);
     fprintf(fp, "do_psnr: %ld\n", now2 - now); 
+    printf("do_psnr: %ld\n", now2 - now);
     fclose(fp); 
     //TODO: R&N Delete end
 
