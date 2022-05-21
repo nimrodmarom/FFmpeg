@@ -242,7 +242,7 @@ static inline double calcSquaredErrorAndWeight (AVFilterContext *ctx, XPSNRConte
   clock_t now, now2;
   av_log(ctx, AV_LOG_INFO, "\n******calcSquaredErrorAndWeight: begin******\n");
   // current time
-  now = clock();
+  start = clock();
   //TODO: R&N Delete end
   const double sse = (double) calcSquaredError (s, o, strideOrg,
                                                 r, strideRec,
@@ -325,7 +325,7 @@ static inline double calcSquaredErrorAndWeight (AVFilterContext *ctx, XPSNRConte
 
   *msAct *= *msAct; /* because SSE is squared */ /* R&N: alpha k*/
   //TODO: R&N Delete begin
-  now2 = clock();
+  end = clock();
   av_log(ctx, AV_LOG_INFO, "\n******calcSquaredErrorAndWeight: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC); 
 
   //TODO: R&N Delete end
@@ -371,7 +371,7 @@ static int getWSSE (AVFilterContext *ctx, int16_t **org, int16_t **orgM1, int16_
   clock_t now, now2;
   av_log(ctx, AV_LOG_INFO, "\n******getWSSE: begin******\n");
   // current time
-  now = clock();
+  start = clock();
   //TODO: R&N Delete end
   if ((wsse64 == NULL) || (s->depth < 6) || (s->depth > 16) || (s->numComps <= 0) || (s->numComps > 3) || (W == 0) || (H == 0))
   {
@@ -493,7 +493,7 @@ static int getWSSE (AVFilterContext *ctx, int16_t **org, int16_t **orgM1, int16_
     }
   } /* for c */
   //TODO: R&N Delete begin
-  now2 = clock();
+  end = clock();
   av_log(ctx, AV_LOG_INFO, "\n******getWSSE: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC); 
   //TODO: R&N Delete end
   return 0;
@@ -521,7 +521,7 @@ static int do_xpsnr (FFFrameSync *fs)
   clock_t now, now2;
   av_log(ctx, AV_LOG_INFO, "\n******do_xpsnr: begin******\n");
   // current time
-  now = clock();
+  start = clock();
   //TODO: R&N Delete end
 
   if ((retValue = ff_framesync_dualinput_get (fs, &master, &ref)) < 0) return retValue;
@@ -609,7 +609,7 @@ static int do_xpsnr (FFFrameSync *fs)
     }
     fprintf (s->statsFile, "\n");
   }  //TODO: R&N Delete begin 
-  now2 = clock();
+  end = clock();
   av_log(ctx, AV_LOG_INFO, "\n******do_xpsnr: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
   //TODO: R&N Delete end  return ff_filter_frame (ctx->outputs[0], master);
 }
@@ -623,7 +623,7 @@ static av_cold int init (AVFilterContext *ctx)
   clock_t now, now2;
   av_log(ctx, AV_LOG_INFO, "\n******init: begin******\n");
   // current time
-  now = clock();
+  start = clock();
   //TODO: R&N Delete end
   if (s->statsFileStr != NULL)
   {
@@ -663,7 +663,7 @@ static av_cold int init (AVFilterContext *ctx)
   }
 
   s->fs.on_event = do_xpsnr;  //TODO: R&N Delete begin
-  now2 = clock(); 
+  end = clock(); 
   av_log(ctx, AV_LOG_INFO, "\n******init: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
   //TODO: R&N Delete end
   return 0;
@@ -691,13 +691,13 @@ static int query_formats (AVFilterContext *ctx)
   clock_t now, now2;
   av_log(ctx, AV_LOG_INFO, "\n******query_formats: begin******\n");
   // current time
-  now = clock();
+  start = clock();
   //TODO: R&N Delete end
   AVFilterFormats *fmts_list = ff_make_format_list (pix_fmts);
 
   if (fmts_list == NULL) return AVERROR (ENOMEM);
   //TODO: R&N Delete begin
-  now2 = clock(); 
+  end = clock(); 
   av_log(ctx, AV_LOG_INFO, "\n******query_formats: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
   //TODO: R&N Delete end
   return ff_set_common_formats (ctx, fmts_list);
@@ -713,7 +713,7 @@ static int config_input_ref (AVFilterLink *inLink)
   clock_t now, now2;
   av_log(inLink->dst, AV_LOG_INFO, "\n******config_input_ref: begin******\n");
   // current time
-  now = clock();
+  start = clock();
   //TODO: R&N Delete end
   if ((ctx->inputs[0]->w != ctx->inputs[1]->w) ||
       (ctx->inputs[0]->h != ctx->inputs[1]->h))
@@ -770,7 +770,7 @@ static int config_input_ref (AVFilterLink *inLink)
 #endif
   }
   //TODO: R&N Delete begin
-  now2 = clock(); 
+  end = clock(); 
   av_log(inLink->dst, AV_LOG_INFO, "\n******config_input_ref: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
   //TODO: R&N Delete end  return 0;
 }
@@ -786,7 +786,7 @@ static int config_output (AVFilterLink *outLink)
   clock_t now, now2;
   av_log(outLink->src, AV_LOG_INFO, "\n******config_output: begin******\n");
   // current time
-  now = clock();
+  start = clock();
   //TODO: R&N Delete end
   if ((retValue = ff_framesync_init_dualinput (&s->fs, ctx)) < 0) return retValue;
 
@@ -798,7 +798,7 @@ static int config_output (AVFilterLink *outLink)
 
   if ((retValue = ff_framesync_configure (&s->fs)) < 0) return retValue;
   //TODO: R&N Delete begin
-  now2 = clock(); 
+  end = clock(); 
   av_log(outLink->src, AV_LOG_INFO, "\n******config_output: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
   //TODO: R&N Delete end
   return 0;
@@ -812,10 +812,10 @@ static int activate (AVFilterContext *ctx)
   clock_t now, now2;
   av_log(ctx, AV_LOG_INFO, "\n******activate: begin******\n");  
   // current time
-  now = clock();
+  start = clock();
   //TODO: R&N Delete end
   return ff_framesync_activate (&s->fs);  //TODO: R&N Delete begin
-  now2 = clock(); 
+  end = clock(); 
   av_log(ctx, AV_LOG_INFO, "\n******activate: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
   //TODO: R&N Delete end}
 
@@ -824,13 +824,12 @@ static av_cold void uninit (AVFilterContext *ctx)
   XPSNRContext* const s = ctx->priv;
   int c;
 
-/*    
   //TODO: R&N Delete begin
     // create text file and open it
-    clock_t now, now2;
+    clock_t start, end;
     av_log(ctx, AV_LOG_INFO, "\n******uninit: begin******\n");
     // current time
-    now = clock();
+    start = clock();
     //TODO: R&N Delete end
 
   if (s->numFrames64 > 0) /* print out overall component-wise XPSNR average */
@@ -894,7 +893,7 @@ static av_cold void uninit (AVFilterContext *ctx)
   }
   //TODO: R&N Delete begin
     // print the difference between now and current time
-    now2 = clock(); 
+    end = clock(); 
     av_log(ctx, AV_LOG_INFO, "\n******uninit: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end}
 

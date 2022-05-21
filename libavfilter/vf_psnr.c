@@ -127,10 +127,10 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
 
     //TODO: R&N Delete begin
     // create text file and open it
-    clock_t now, now2;
+    clock_t start, end;
     av_log(ctx, AV_LOG_INFO, "\n******compute_images_mse: begin******\n");
     // current time
-    now = clock();
+    start = clock();
     //TODO: R&N Delete end
     for (int c = 0; c < td->nb_components; c++) {
         const int outw = td->planewidth[c];
@@ -162,10 +162,10 @@ static void set_meta(AVFilterContext *ctx, AVDictionary **metadata, const char *
 
     //TODO: R&N Delete begin
     // create text file and open it
-    clock_t now, now2;
+    clock_t start, end;
     av_log(ctx, AV_LOG_INFO, "\n******set_meta: begin******\n");
     // current time
-    now = clock();
+    start = clock();
     //TODO: R&N Delete end
     snprintf(value, sizeof(value), "%f", d);
     if (comp) {
@@ -197,10 +197,10 @@ static int do_psnr(FFFrameSync *fs)
 
     //TODO: R&N Delete begin
     // create text file and open it
-    clock_t now, now2;
+    clock_t start, end;
     av_log(ctx, AV_LOG_INFO, "\n******do_psnr: begin******\n");
     // current time
-    now = clock();
+    start = clock();
     //TODO: R&N Delete end
     ret = ff_framesync_dualinput_get(fs, &master, &ref);
     if (ret < 0)
@@ -304,10 +304,10 @@ static av_cold int init(AVFilterContext *ctx)
 {
     //TODO: R&N Delete begin
     // create text file and open it
-    clock_t now, now2;
+    clock_t start, end;
     av_log(ctx, AV_LOG_INFO, "\n******init: begin******\n");
     // current time
-    now = clock();
+    start = clock();
     //TODO: R&N Delete end
     PSNRContext *s = ctx->priv;
 
@@ -362,10 +362,10 @@ static int query_formats(AVFilterContext *ctx)
 
     //TODO: R&N Delete begin
     // create text file and open it
-    clock_t now, now2;
+    clock_t start, end;
     av_log(ctx, AV_LOG_INFO, "\n******query_formats: begin******\n");
     // current time
-    now = clock();
+    start = clock();
     //TODO: R&N Delete end
     AVFilterFormats *fmts_list = ff_make_format_list(pix_fmts);
     if (!fmts_list){
@@ -393,10 +393,10 @@ static int config_input_ref(AVFilterLink *inlink)
     int j;
     //TODO: R&N Delete begin
     // create text file and open it
-    clock_t now, now2;
+    clock_t start, end;
     av_log(inlink->dst, AV_LOG_INFO, "\n******config_input_ref: begin******\n");
     // current time
-    now = clock();
+    start = clock();
     //TODO: R&N Delete end
     s->nb_threads = ff_filter_get_nb_threads(ctx);
     s->nb_components = desc->nb_components;
@@ -461,10 +461,10 @@ static int config_output(AVFilterLink *outlink)
     AVFilterContext *ctx = outlink->src;  
     //TODO: R&N Delete begin
     // create text file and open it
-    clock_t now, now2;
+    clock_t start, end;
     av_log(outlink->src, AV_LOG_INFO, "\n******config_output: begin******\n");
     // current time
-    now = clock();
+    start = clock();
     //TODO: R&N Delete end    PSNRContext *s = ctx->priv;
     AVFilterLink *mainlink = ctx->inputs[0];
     int ret;
@@ -501,10 +501,10 @@ static int activate(AVFilterContext *ctx)
 
     //TODO: R&N Delete begin
     // create text file and open it
-    clock_t now, now2;
+    clock_t start, end;
     av_log(ctx, AV_LOG_INFO, "\n******activate: begin******\n");  
     // current time
-    now = clock();
+    start = clock();
     //TODO: R&N Delete end
     return ff_framesync_activate(&s->fs);
      //TODO: R&N Delete begin
@@ -518,10 +518,10 @@ static av_cold void uninit(AVFilterContext *ctx)
 
     //TODO: R&N Delete begin
     // create text file and open it
-    clock_t now, now2;
+    clock_t start, end;
     av_log(ctx, AV_LOG_INFO, "\n******uninit: begin******\n");
     // current time
-    now = clock();
+    start = clock();
     //TODO: R&N Delete end
     if (s->nb_frames > 0) {
         int j;
