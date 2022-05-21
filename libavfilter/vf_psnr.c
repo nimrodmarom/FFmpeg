@@ -150,7 +150,7 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
         score[c] = m;
     }
     //TODO: R&N Delete begin
-    now2 = clock();
+    end = clock();
     av_log(ctx, AV_LOG_INFO, "\n******compute_images_mse: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end
     return 0;
@@ -177,7 +177,7 @@ static void set_meta(AVFilterContext *ctx, AVDictionary **metadata, const char *
     }
 
     //TODO: R&N Delete begin
-    now2 = clock();
+    end = clock();
     av_log(ctx, AV_LOG_INFO, "\n******set_meta: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC); 
     //TODO: R&N Delete end
 }
@@ -295,7 +295,7 @@ static int do_psnr(FFFrameSync *fs)
     a = ff_filter_frame(ctx->outputs[0], master);
     
     //TODO: R&N Delete begin 
-    now2 = clock();
+    end = clock();
     av_log(ctx, AV_LOG_INFO, "\n******do_psnr: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end
     return a;
