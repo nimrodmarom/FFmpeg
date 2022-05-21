@@ -106,7 +106,7 @@ static uint64_t sse_line_8bit(const uint8_t *main_line,  const uint8_t *ref_line
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
 
-    fprintf(fp, "sse_line_8bit: %s\n", ctime(&now2-&now)); 
+    fprintf(fp, "sse_line_8bit: %d\n", ctime(&now2-&now)); 
     fclose(fp); 
     //TODO: R&N Delete end
 
@@ -140,7 +140,7 @@ static uint64_t sse_line_16bit(const uint8_t *_main_line, const uint8_t *_ref_li
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
 
-    fprintf(fp, "sse_line_16bit: %s\n", ctime(&now2-&now)); 
+    fprintf(fp, "sse_line_16bit: %d\n", ctime(&now2-&now)); 
     fclose(fp); 
     //TODO: R&N Delete end
 
@@ -200,7 +200,7 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
 
-    fprintf(fp, "compute_images_mse: %s\n", ctime(&now2-&now)); 
+    fprintf(fp, "compute_images_mse: %d\n", ctime(&now2-&now)); 
     fclose(fp); 
     //TODO: R&N Delete end
 
@@ -236,7 +236,7 @@ static void set_meta(AVDictionary **metadata, const char *key, char comp, float 
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
 
-    fprintf(fp, "set_meta: %s\n", ctime(&now2-&now)); 
+    fprintf(fp, "set_meta: %d\n", ctime(&now2-&now)); 
     fclose(fp); 
     //TODO: R&N Delete end
 }
@@ -361,7 +361,7 @@ static int do_psnr(FFFrameSync *fs)
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
 
-    fprintf(fp, "do_psnr: %s\n", ctime(&now2-&now)); 
+    fprintf(fp, "do_psnr: %d\n", ctime(&now2-&now)); 
     fclose(fp); 
     //TODO: R&N Delete end
 
@@ -414,7 +414,7 @@ static av_cold int init(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
 
-    fprintf(fp, "init: %s\n", ctime(&now2-&now)); 
+    fprintf(fp, "init: %d\n", ctime(&now2-&now)); 
     fclose(fp); 
     //TODO: R&N Delete end
     return 0;
@@ -456,7 +456,7 @@ static int query_formats(AVFilterContext *ctx)
         //TODO: R&N Delete begin
         time_t now2 = time(NULL);
 
-        fprintf(fp, "query_formats: %s\n", ctime(&now2-&now)); 
+        fprintf(fp, "query_formats: %d\n", ctime(&now2-&now)); 
         fclose(fp); 
         //TODO: R&N Delete end
         return AVERROR(ENOMEM);
@@ -467,7 +467,7 @@ static int query_formats(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
 
-    fprintf(fp, "query_formats: %s\n", ctime(&now2-&now)); 
+    fprintf(fp, "query_formats: %d\n", ctime(&now2-&now)); 
     fclose(fp); 
     //TODO: R&N Delete end
     return a;
@@ -550,7 +550,7 @@ static int config_input_ref(AVFilterLink *inlink)
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
 
-    fprintf(fp, "config_input_ref: %s\n", ctime(&now2-&now)); 
+    fprintf(fp, "config_input_ref: %d\n", ctime(&now2-&now)); 
     fclose(fp); 
     //TODO: R&N Delete end
 
@@ -600,7 +600,7 @@ static int config_output(AVFilterLink *outlink)
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
 
-    fprintf(fp, "config_output: %s\n", ctime(&now2-&now)); 
+    fprintf(fp, "config_output: %d\n", ctime(&now2-&now)); 
     fclose(fp); 
     //TODO: R&N Delete end
 
@@ -628,7 +628,7 @@ static int activate(AVFilterContext *ctx)
      //TODO: R&N Delete begin
     time_t now2 = time(NULL);
 
-    fprintf(fp, "activate: %s\n", ctime(&now2-&now)); 
+    fprintf(fp, "activate: %d\n", ctime(&now2-&now)); 
     fclose(fp); 
     //TODO: R&N Delete end
 }
@@ -679,7 +679,7 @@ static av_cold void uninit(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
 
-    fprintf(fp, "uninit: %s\n", ctime(&now2-&now)); 
+    fprintf(fp, "uninit: %d\n", ctime(&now2-&now)); 
     fclose(fp); 
     //TODO: R&N Delete end
     
