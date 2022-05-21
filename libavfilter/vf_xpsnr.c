@@ -855,7 +855,8 @@ static av_cold void uninit (AVFilterContext *ctx)
   XPSNRContext* const s = ctx->priv;
   int c;
 
-    //TODO: R&N Delete begin
+/*    
+  //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
     av_log(ctx, AV_LOG_INFO, "\n******uninit: begin******\n");
