@@ -179,7 +179,8 @@ static void set_meta(AVFilterContext *ctx, AVDictionary **metadata, const char *
     //TODO: R&N Delete begin
     now2 = clock();
     av_log(ctx, AV_LOG_INFO, "\n******set_meta: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC); 
-    //TODO: R&N Delete end}
+    //TODO: R&N Delete end
+}
 
 static int do_psnr(FFFrameSync *fs)
 {
@@ -337,7 +338,7 @@ static av_cold int init(AVFilterContext *ctx)
 
     s->fs.on_event = do_psnr;
     //TODO: R&N Delete begin
-    now2 = clock(); 
+    end = clock(); 
     av_log(ctx, AV_LOG_INFO, "\n******init: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end    return 0;
 }
@@ -370,7 +371,7 @@ static int query_formats(AVFilterContext *ctx)
     AVFilterFormats *fmts_list = ff_make_format_list(pix_fmts);
     if (!fmts_list){
         //TODO: R&N Delete begin
-        now2 = clock(); 
+        end = clock(); 
         av_log(ctx, AV_LOG_INFO, "\n******query_formats: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
         //TODO: R&N Delete end        return AVERROR(ENOMEM);
     }
@@ -378,7 +379,7 @@ static int query_formats(AVFilterContext *ctx)
     a = ff_set_common_formats(ctx, fmts_list);
 
     //TODO: R&N Delete begin
-    now2 = clock(); 
+    end = clock(); 
     av_log(ctx, AV_LOG_INFO, "\n******query_formats: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end    return a;
 }
@@ -450,7 +451,7 @@ static int config_input_ref(AVFilterLink *inlink)
     }
 
     //TODO: R&N Delete begin
-    now2 = clock(); 
+    end = clock(); 
     av_log(inlink->dst, AV_LOG_INFO, "\n******config_input_ref: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end
     return 0;
@@ -489,7 +490,7 @@ static int config_output(AVFilterLink *outlink)
                ctx->inputs[1]->time_base.num, ctx->inputs[1]->time_base.den);
     
     //TODO: R&N Delete begin
-    now2 = clock(); 
+    end = clock(); 
     av_log(outlink->src, AV_LOG_INFO, "\n******config_output: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end
     return 0;
@@ -508,9 +509,10 @@ static int activate(AVFilterContext *ctx)
     //TODO: R&N Delete end
     return ff_framesync_activate(&s->fs);
      //TODO: R&N Delete begin
-    now2 = clock(); 
+    end = clock(); 
     av_log(ctx, AV_LOG_INFO, "\n******activate: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
-    //TODO: R&N Delete end}
+    //TODO: R&N Delete end
+}
 
 static av_cold void uninit(AVFilterContext *ctx)
 {
@@ -550,7 +552,7 @@ static av_cold void uninit(AVFilterContext *ctx)
 
     //TODO: R&N Delete begin
     // print the difference between now and current time
-    now2 = clock(); 
+    end = clock(); 
     av_log(ctx, AV_LOG_INFO, "\n******uninit: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end    
 

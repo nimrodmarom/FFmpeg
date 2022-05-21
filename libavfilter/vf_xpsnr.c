@@ -239,7 +239,7 @@ static inline double calcSquaredErrorAndWeight (AVFilterContext *ctx, XPSNRConte
   const int   hAct = (offsetY + blockHeight < (uint32_t) s->planeHeight[0] ? (int) blockHeight : (int) blockHeight - bVal);
   //TODO: R&N Delete begin
   //create text file and open it
-  clock_t now, now2;
+  clock_t start, end;
   av_log(ctx, AV_LOG_INFO, "\n******calcSquaredErrorAndWeight: begin******\n");
   // current time
   start = clock();
@@ -368,7 +368,7 @@ static int getWSSE (AVFilterContext *ctx, int16_t **org, int16_t **orgM1, int16_
   int c;
   //TODO: R&N Delete begin
   // create text file and open it
-  clock_t now, now2;
+  clock_t start, end;
   av_log(ctx, AV_LOG_INFO, "\n******getWSSE: begin******\n");
   // current time
   start = clock();
@@ -518,7 +518,7 @@ static int do_xpsnr (FFFrameSync *fs)
   int c, retValue;
   //TODO: R&N Delete begin
   // create text file and open it
-  clock_t now, now2;
+  clock_t start, end;
   av_log(ctx, AV_LOG_INFO, "\n******do_xpsnr: begin******\n");
   // current time
   start = clock();
@@ -620,7 +620,7 @@ static av_cold int init (AVFilterContext *ctx)
   int c;
   //TODO: R&N Delete begin
   // create text file and open it
-  clock_t now, now2;
+  clock_t start, end;
   av_log(ctx, AV_LOG_INFO, "\n******init: begin******\n");
   // current time
   start = clock();
@@ -688,7 +688,7 @@ static int query_formats (AVFilterContext *ctx)
   };
   //TODO: R&N Delete begin
   // create text file and open it
-  clock_t now, now2;
+  clock_t start, end;
   av_log(ctx, AV_LOG_INFO, "\n******query_formats: begin******\n");
   // current time
   start = clock();
@@ -710,7 +710,7 @@ static int config_input_ref (AVFilterLink *inLink)
   XPSNRContext* const s = ctx->priv;
   int cpu_flags;  //TODO: R&N Delete begin
   // create text file and open it
-  clock_t now, now2;
+  clock_t start, end;
   av_log(inLink->dst, AV_LOG_INFO, "\n******config_input_ref: begin******\n");
   // current time
   start = clock();
@@ -783,7 +783,7 @@ static int config_output (AVFilterLink *outLink)
   int retValue;
   //TODO: R&N Delete begin
   // create text file and open it
-  clock_t now, now2;
+  clock_t start, end;
   av_log(outLink->src, AV_LOG_INFO, "\n******config_output: begin******\n");
   // current time
   start = clock();
@@ -809,7 +809,7 @@ static int activate (AVFilterContext *ctx)
   XPSNRContext *s = ctx->priv;
   //TODO: R&N Delete begin
   // create text file and open it
-  clock_t now, now2;
+  clock_t start, end;
   av_log(ctx, AV_LOG_INFO, "\n******activate: begin******\n");  
   // current time
   start = clock();
@@ -817,7 +817,8 @@ static int activate (AVFilterContext *ctx)
   return ff_framesync_activate (&s->fs);  //TODO: R&N Delete begin
   end = clock(); 
   av_log(ctx, AV_LOG_INFO, "\n******activate: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
-  //TODO: R&N Delete end}
+  //TODO: R&N Delete end
+}
 
 static av_cold void uninit (AVFilterContext *ctx)
 {
@@ -892,10 +893,11 @@ static av_cold void uninit (AVFilterContext *ctx)
     }
   }
   //TODO: R&N Delete begin
-    // print the difference between now and current time
-    end = clock(); 
-    av_log(ctx, AV_LOG_INFO, "\n******uninit: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
-    //TODO: R&N Delete end}
+  // print the difference between now and current time
+  end = clock(); 
+  av_log(ctx, AV_LOG_INFO, "\n******uninit: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+  //TODO: R&N Delete end
+}
 
 static const AVFilterPad xpsnr_inputs[] =
 {
