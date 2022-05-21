@@ -772,7 +772,8 @@ static int config_input_ref (AVFilterLink *inLink)
   //TODO: R&N Delete begin
   end = clock(); 
   av_log(inLink->dst, AV_LOG_INFO, "\n******config_input_ref: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
-  //TODO: R&N Delete end  return 0;
+  //TODO: R&N Delete end  
+  return 0;
 }
 
 static int config_output (AVFilterLink *outLink)
