@@ -108,7 +108,9 @@ static uint64_t sse_line_8bit(const uint8_t *main_line,  const uint8_t *ref_line
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
 
-    fprintf(fp, "sse_line_8bit: %s\n", ctime((time_t)(&now2-&now))); 
+    const time_t diff = time_t(&now2 - &now);
+
+    fprintf(fp, "sse_line_8bit: %s\n", ctime(diff)); 
     fclose(fp); 
     //TODO: R&N Delete end
 
@@ -142,7 +144,9 @@ static uint64_t sse_line_16bit(const uint8_t *_main_line, const uint8_t *_ref_li
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
 
-    fprintf(fp, "sse_line_16bit: %s\n", ctime((time_t)(&now2-&now))); 
+    const time_t diff = time_t(&now2 - &now);
+
+    fprintf(fp, "sse_line_16bit: %s\n", ctime(diff)); 
     fclose(fp); 
     //TODO: R&N Delete end
 
@@ -201,8 +205,10 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
     }
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
+    
+    const time_t diff = time_t(&now2 - &now);
 
-    fprintf(fp, "compute_images_mse: %s\n", ctime((time_t)(&now2-&now))); 
+    fprintf(fp, "compute_images_mse: %s\n", ctime(diff)); 
     fclose(fp); 
     //TODO: R&N Delete end
 
@@ -238,7 +244,9 @@ static void set_meta(AVDictionary **metadata, const char *key, char comp, float 
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
 
-    fprintf(fp, "set_meta: %s\n", ctime((time_t)(&now2-&now))); 
+    const time_t diff = time_t(&now2 - &now);
+
+    fprintf(fp, "set_meta: %s\n", ctime(diff)); 
     fclose(fp); 
     //TODO: R&N Delete end
 }
@@ -362,8 +370,10 @@ static int do_psnr(FFFrameSync *fs)
 
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
+    const time_t diff = time_t(&now2 - &now);
+    
 
-    fprintf(fp, "do_psnr: %s\n", ctime((time_t)(&now2-&now))); 
+    fprintf(fp, "do_psnr: %s\n", ctime(diff)); 
     fclose(fp); 
     //TODO: R&N Delete end
 
@@ -415,8 +425,9 @@ static av_cold int init(AVFilterContext *ctx)
     s->fs.on_event = do_psnr;
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
+    const time_t diff = time_t(&now2 - &now);
 
-    fprintf(fp, "init: %s\n", ctime((time_t)(&now2-&now))); 
+    fprintf(fp, "init: %s\n", ctime(diff)); 
     fclose(fp); 
     //TODO: R&N Delete end
     return 0;
@@ -458,7 +469,7 @@ static int query_formats(AVFilterContext *ctx)
         //TODO: R&N Delete begin
         time_t now2 = time(NULL);
 
-        fprintf(fp, "query_formats: %s\n", ctime((time_t)(&now2-&now))); 
+        fprintf(fp, "query_formats: %s\n", ctime(diff)); 
         fclose(fp); 
         //TODO: R&N Delete end
         return AVERROR(ENOMEM);
@@ -468,8 +479,9 @@ static int query_formats(AVFilterContext *ctx)
 
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
+    const time_t diff = time_t(&now2 - &now);
 
-    fprintf(fp, "query_formats: %s\n", ctime((time_t)(&now2-&now))); 
+    fprintf(fp, "query_formats: %s\n", ctime(diff)); 
     fclose(fp); 
     //TODO: R&N Delete end
     return a;
@@ -551,8 +563,9 @@ static int config_input_ref(AVFilterLink *inlink)
 
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
+    const time_t diff = time_t(&now2 - &now);
 
-    fprintf(fp, "config_input_ref: %s\n", ctime((time_t)(&now2-&now))); 
+    fprintf(fp, "config_input_ref: %s\n", ctime(diff)); 
     fclose(fp); 
     //TODO: R&N Delete end
 
@@ -601,8 +614,9 @@ static int config_output(AVFilterLink *outlink)
     
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
+    const time_t diff = time_t(&now2 - &now);
 
-    fprintf(fp, "config_output: %s\n", ctime((time_t)(&now2-&now))); 
+    fprintf(fp, "config_output: %s\n", ctime(diff)); 
     fclose(fp); 
     //TODO: R&N Delete end
 
@@ -629,8 +643,9 @@ static int activate(AVFilterContext *ctx)
     return ff_framesync_activate(&s->fs);
      //TODO: R&N Delete begin
     time_t now2 = time(NULL);
+    const time_t diff = time_t(&now2 - &now);
 
-    fprintf(fp, "activate: %s\n", ctime((time_t)(&now2-&now))); 
+    fprintf(fp, "activate: %s\n", ctime(diff)); 
     fclose(fp); 
     //TODO: R&N Delete end
 }
@@ -680,8 +695,9 @@ static av_cold void uninit(AVFilterContext *ctx)
 
     //TODO: R&N Delete begin
     time_t now2 = time(NULL);
+    const time_t diff = time_t(&now2 - &now);
 
-    fprintf(fp, "uninit: %s\n", ctime((time_t)(&now2-&now))); 
+    fprintf(fp, "uninit: %s\n", ctime(diff)); 
     fclose(fp); 
     //TODO: R&N Delete end
     
