@@ -83,17 +83,52 @@ static inline double get_psnr(double mse, uint64_t nb_frames, int max)
 
 static uint64_t sse_line_8bit(const uint8_t *main_line,  const uint8_t *ref_line, int outw)
 {
+    //TODO: R&N Delete begin
+    // create text file and open it
+    FILE *fp; 
+    char *filename = "psnr.txt"; 
+    fp = fopen(filename, "a"); 
+    if (fp == NULL) { 
+        printf("Error opening file!\n"); 
+        exit(1); 
+    } 
+    fprintf(fp, "sse_line_8bit: begin\n"); 
+    // current time
+    time_t now = time(NULL);
+    //TODO: R&N Delete end
+
     int j;
     unsigned m2 = 0;
 
     for (j = 0; j < outw; j++)
         m2 += pow_2(main_line[j] - ref_line[j]);
+    
+    //TODO: R&N Delete begin
+    time_t now2 = time(NULL);
+
+    fprintf(fp, "sse_line_8bit: %s\n", ctime(&now2-&now)); 
+    fclose(fp); 
+    //TODO: R&N Delete end
 
     return m2;
 }
 
 static uint64_t sse_line_16bit(const uint8_t *_main_line, const uint8_t *_ref_line, int outw)
 {
+    //TODO: R&N Delete begin
+    // create text file and open it
+    FILE *fp; 
+    char *filename = "psnr.txt"; 
+    fp = fopen(filename, "a"); 
+    if (fp == NULL) { 
+        printf("Error opening file!\n"); 
+        exit(1); 
+    } 
+    fprintf(fp, "sse_line_16bit: begin\n"); 
+    // current time
+    time_t now = time(NULL);
+    //TODO: R&N Delete end
+
     int j;
     uint64_t m2 = 0;
     const uint16_t *main_line = (const uint16_t *) _main_line;
@@ -101,6 +136,13 @@ static uint64_t sse_line_16bit(const uint8_t *_main_line, const uint8_t *_ref_li
 
     for (j = 0; j < outw; j++)
         m2 += pow_2(main_line[j] - ref_line[j]);
+
+    //TODO: R&N Delete begin
+    time_t now2 = time(NULL);
+
+    fprintf(fp, "sse_line_16bit: %s\n", ctime(&now2-&now)); 
+    fclose(fp); 
+    //TODO: R&N Delete end
 
     return m2;
 }
@@ -121,6 +163,20 @@ static
 int compute_images_mse(AVFilterContext *ctx, void *arg,
                        int jobnr, int nb_jobs)
 {
+    //TODO: R&N Delete begin
+    // create text file and open it
+    FILE *fp; 
+    char *filename = "psnr.txt"; 
+    fp = fopen(filename, "a"); 
+    if (fp == NULL) { 
+        printf("Error opening file!\n"); 
+        exit(1); 
+    } 
+    fprintf(fp, "compute_images_mse: begin\n");
+    // current time
+    time_t now = time(NULL);
+    //TODO: R&N Delete end
+
     ThreadData *td = arg;
     uint64_t *score = td->score[jobnr];
 
@@ -141,12 +197,32 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
         }
         score[c] = m;
     }
+    //TODO: R&N Delete begin
+    time_t now2 = time(NULL);
+
+    fprintf(fp, "compute_images_mse: %s\n", ctime(&now2-&now)); 
+    fclose(fp); 
+    //TODO: R&N Delete end
 
     return 0;
 }
 
 static void set_meta(AVDictionary **metadata, const char *key, char comp, float d)
 {
+    //TODO: R&N Delete begin
+    // create text file and open it
+    FILE *fp; 
+    char *filename = "psnr.txt"; 
+    fp = fopen(filename, "a"); 
+    if (fp == NULL) { 
+        printf("Error opening file!\n"); 
+        exit(1); 
+    } 
+    fprintf(fp, "set_meta: begin\n");
+    // current time
+    time_t now = time(NULL);
+    //TODO: R&N Delete end
+
     char value[128];
     snprintf(value, sizeof(value), "%f", d);
     if (comp) {
@@ -156,10 +232,31 @@ static void set_meta(AVDictionary **metadata, const char *key, char comp, float 
     } else {
         av_dict_set(metadata, key, value, 0);
     }
+
+    //TODO: R&N Delete begin
+    time_t now2 = time(NULL);
+
+    fprintf(fp, "set_meta: %s\n", ctime(&now2-&now)); 
+    fclose(fp); 
+    //TODO: R&N Delete end
 }
 
 static int do_psnr(FFFrameSync *fs)
 {
+    //TODO: R&N Delete begin
+    // create text file and open it
+    FILE *fp; 
+    char *filename = "psnr.txt"; 
+    fp = fopen(filename, "a"); 
+    if (fp == NULL) { 
+        printf("Error opening file!\n"); 
+        exit(1); 
+    } 
+    fprintf(fp, "do_psnr: begin\n");
+    // current time
+    time_t now = time(NULL);
+    //TODO: R&N Delete end
+
     AVFilterContext *ctx = fs->parent;
     PSNRContext *s = ctx->priv;
     AVFrame *master, *ref;
@@ -259,11 +356,34 @@ static int do_psnr(FFFrameSync *fs)
         fprintf(s->stats_file, "\n");
     }
 
-    return ff_filter_frame(ctx->outputs[0], master);
+    int a = ff_filter_frame(ctx->outputs[0], master)
+
+    //TODO: R&N Delete begin
+    time_t now2 = time(NULL);
+
+    fprintf(fp, "do_psnr: %s\n", ctime(&now2-&now)); 
+    fclose(fp); 
+    //TODO: R&N Delete end
+
+    return a;
 }
 
 static av_cold int init(AVFilterContext *ctx)
 {
+    //TODO: R&N Delete begin
+    // create text file and open it
+    FILE *fp; 
+    char *filename = "psnr.txt"; 
+    fp = fopen(filename, "a"); 
+    if (fp == NULL) { 
+        printf("Error opening file!\n"); 
+        exit(1); 
+    } 
+    fprintf(fp, "init: begin\n");
+    // current time
+    time_t now = time(NULL);
+    //TODO: R&N Delete end
+
     PSNRContext *s = ctx->priv;
 
     s->min_mse = +INFINITY;
@@ -291,11 +411,31 @@ static av_cold int init(AVFilterContext *ctx)
     }
 
     s->fs.on_event = do_psnr;
+    //TODO: R&N Delete begin
+    time_t now2 = time(NULL);
+
+    fprintf(fp, "init: %s\n", ctime(&now2-&now)); 
+    fclose(fp); 
+    //TODO: R&N Delete end
     return 0;
 }
 
 static int query_formats(AVFilterContext *ctx)
 {
+    //TODO: R&N Delete begin
+    // create text file and open it
+    FILE *fp; 
+    char *filename = "psnr.txt"; 
+    fp = fopen(filename, "a"); 
+    if (fp == NULL) { 
+        printf("Error opening file!\n"); 
+        exit(1); 
+    } 
+    fprintf(fp, "query_formats: begin\n");
+    // current time
+    time_t now = time(NULL);
+    //TODO: R&N Delete end
+
     static const enum AVPixelFormat pix_fmts[] = {
         AV_PIX_FMT_GRAY8, AV_PIX_FMT_GRAY9, AV_PIX_FMT_GRAY10, AV_PIX_FMT_GRAY12, AV_PIX_FMT_GRAY14, AV_PIX_FMT_GRAY16,
 #define PF_NOALPHA(suf) AV_PIX_FMT_YUV420##suf,  AV_PIX_FMT_YUV422##suf,  AV_PIX_FMT_YUV444##suf
@@ -312,13 +452,43 @@ static int query_formats(AVFilterContext *ctx)
     };
 
     AVFilterFormats *fmts_list = ff_make_format_list(pix_fmts);
-    if (!fmts_list)
+    if (!fmts_list){
+        //TODO: R&N Delete begin
+        time_t now2 = time(NULL);
+
+        fprintf(fp, "query_formats: %s\n", ctime(&now2-&now)); 
+        fclose(fp); 
+        //TODO: R&N Delete end
         return AVERROR(ENOMEM);
-    return ff_set_common_formats(ctx, fmts_list);
+    }
+
+    int a = ff_set_common_formats(ctx, fmts_list);
+
+    //TODO: R&N Delete begin
+    time_t now2 = time(NULL);
+
+    fprintf(fp, "query_formats: %s\n", ctime(&now2-&now)); 
+    fclose(fp); 
+    //TODO: R&N Delete end
+    return a;
 }
 
 static int config_input_ref(AVFilterLink *inlink)
 {
+    //TODO: R&N Delete begin
+    // create text file and open it
+    FILE *fp; 
+    char *filename = "psnr.txt"; 
+    fp = fopen(filename, "a"); 
+    if (fp == NULL) { 
+        printf("Error opening file!\n"); 
+        exit(1); 
+    } 
+    fprintf(fp, "config_input_ref: begin\n");
+    // current time
+    time_t now = time(NULL);
+    //TODO: R&N Delete end
+
     const AVPixFmtDescriptor *desc = av_pix_fmt_desc_get(inlink->format);
     AVFilterContext *ctx  = inlink->dst;
     PSNRContext *s = ctx->priv;
@@ -377,11 +547,32 @@ static int config_input_ref(AVFilterLink *inlink)
             return AVERROR(ENOMEM);
     }
 
+    //TODO: R&N Delete begin
+    time_t now2 = time(NULL);
+
+    fprintf(fp, "config_input_ref: %s\n", ctime(&now2-&now)); 
+    fclose(fp); 
+    //TODO: R&N Delete end
+
     return 0;
 }
 
 static int config_output(AVFilterLink *outlink)
 {
+    //TODO: R&N Delete begin
+    // create text file and open it
+    FILE *fp; 
+    char *filename = "psnr.txt"; 
+    fp = fopen(filename, "a"); 
+    if (fp == NULL) { 
+        printf("Error opening file!\n"); 
+        exit(1); 
+    } 
+    fprintf(fp, "config_output: begin\n");
+    // current time
+    time_t now = time(NULL);
+    //TODO: R&N Delete end
+
     AVFilterContext *ctx = outlink->src;
     PSNRContext *s = ctx->priv;
     AVFilterLink *mainlink = ctx->inputs[0];
@@ -405,18 +596,59 @@ static int config_output(AVFilterLink *outlink)
         av_log(ctx, AV_LOG_WARNING, "not matching timebases found between first input: %d/%d and second input %d/%d, results may be incorrect!\n",
                mainlink->time_base.num, mainlink->time_base.den,
                ctx->inputs[1]->time_base.num, ctx->inputs[1]->time_base.den);
+    
+    //TODO: R&N Delete begin
+    time_t now2 = time(NULL);
+
+    fprintf(fp, "config_output: %s\n", ctime(&now2-&now)); 
+    fclose(fp); 
+    //TODO: R&N Delete end
 
     return 0;
 }
 
 static int activate(AVFilterContext *ctx)
 {
+    //TODO: R&N Delete begin
+    // create text file and open it
+    FILE *fp; 
+    char *filename = "psnr.txt"; 
+    fp = fopen(filename, "a"); 
+    if (fp == NULL) { 
+        printf("Error opening file!\n"); 
+        exit(1); 
+    } 
+    fprintf(fp, "activate: begin\n");
+    // current time
+    time_t now = time(NULL);
+    //TODO: R&N Delete end
+
     PSNRContext *s = ctx->priv;
     return ff_framesync_activate(&s->fs);
+     //TODO: R&N Delete begin
+    time_t now2 = time(NULL);
+
+    fprintf(fp, "activate: %s\n", ctime(&now2-&now)); 
+    fclose(fp); 
+    //TODO: R&N Delete end
 }
 
 static av_cold void uninit(AVFilterContext *ctx)
 {
+    //TODO: R&N Delete begin
+    // create text file and open it
+    FILE *fp; 
+    char *filename = "psnr.txt"; 
+    fp = fopen(filename, "a"); 
+    if (fp == NULL) { 
+        printf("Error opening file!\n"); 
+        exit(1); 
+    } 
+    fprintf(fp, "uninit: begin\n");
+    // current time
+    time_t now = time(NULL);
+    //TODO: R&N Delete end
+
     PSNRContext *s = ctx->priv;
 
     if (s->nb_frames > 0) {
@@ -443,6 +675,15 @@ static av_cold void uninit(AVFilterContext *ctx)
 
     if (s->stats_file && s->stats_file != stdout)
         fclose(s->stats_file);
+
+    //TODO: R&N Delete begin
+    time_t now2 = time(NULL);
+
+    fprintf(fp, "uninit: %s\n", ctime(&now2-&now)); 
+    fclose(fp); 
+    //TODO: R&N Delete end
+    
+
 }
 
 static const AVFilterPad psnr_inputs[] = {
