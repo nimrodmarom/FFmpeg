@@ -60,6 +60,8 @@ INFRINGEMENT WITH RESPECT TO THIS SOFTWARE.
 #include "video.h"
 #include "xpsnr.h"
 
+#include <time.h>
+
 /* XPSNR structure definition */
 
 typedef struct XPSNRContext
