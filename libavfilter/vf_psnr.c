@@ -358,17 +358,13 @@ static int do_psnr(FFFrameSync *fs)
         }
         fprintf(s->stats_file, "\n");
     }
-
-    int a = ff_filter_frame(ctx->outputs[0], master)
-
-    //TODO: R&N Delete begin
-    time_t now2 = time(NULL);     
-
+    //TODO: R&N Delete begin 
+    time_t now2 = time(NULL);
     fprintf(fp, "do_psnr: %ld\n", now2 - now); 
     fclose(fp); 
     //TODO: R&N Delete end
 
-    return a;
+    return ff_filter_frame(ctx->outputs[0], master)    
 }
 
 static av_cold int init(AVFilterContext *ctx)
