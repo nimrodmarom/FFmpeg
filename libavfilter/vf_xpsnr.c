@@ -729,7 +729,7 @@ static int config_input_ref (AVFilterLink *inLink)
   //TODO: R&N Delete begin
   // create text file and open it
   time_t now, now2;
-  av_log(inlink->dst, AV_LOG_INFO, "\n******config_input_ref: begin******\n");
+  av_log(inLink->dst, AV_LOG_INFO, "\n******config_input_ref: begin******\n");
   // current time
   now = time(NULL);
   //TODO: R&N Delete end
@@ -791,7 +791,7 @@ static int config_input_ref (AVFilterLink *inLink)
 
   //TODO: R&N Delete begin
   now2 = time(NULL); 
-  av_log(inlink->dst, AV_LOG_INFO, "\n******config_input_ref: end: %ld, end2: %ld******\n", now, now2);
+  av_log(inLink->dst, AV_LOG_INFO, "\n******config_input_ref: end: %ld, end2: %ld******\n", now, now2);
   //TODO: R&N Delete end
   return 0;
 }
