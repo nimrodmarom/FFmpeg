@@ -35,6 +35,8 @@
 #include "psnr.h"
 #include "video.h"
 
+#include <time.h>
+
 typedef struct PSNRContext {
     const AVClass *class;
     FFFrameSync fs;
