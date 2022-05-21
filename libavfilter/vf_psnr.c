@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with FFmpeg; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-/**
+ *
  * @file
  * Caculate the PSNR between two input videos.
  */
@@ -122,6 +122,9 @@ static
 int compute_images_mse(AVFilterContext *ctx, void *arg,
                        int jobnr, int nb_jobs)
 {
+    ThreadData *td = arg;
+    uint64_t *score = td->score[jobnr];
+
     //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
@@ -129,9 +132,6 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
-
-    ThreadData *td = arg;
-    uint64_t *score = td->score[jobnr];
 
     for (int c = 0; c < td->nb_components; c++) {
         const int outw = td->planewidth[c];
@@ -160,6 +160,8 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
 
 static void set_meta(AVFilterContext *ctx, AVDictionary **metadata, const char *key, char comp, float d)
 {
+    char value[128];
+
     //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
@@ -168,7 +170,6 @@ static void set_meta(AVFilterContext *ctx, AVDictionary **metadata, const char *
     now = time(NULL);
     //TODO: R&N Delete end
 
-    char value[128];
     snprintf(value, sizeof(value), "%f", d);
     if (comp) {
         char key2[128];
@@ -188,14 +189,6 @@ static int do_psnr(FFFrameSync *fs)
 {
     AVFilterContext *ctx = fs->parent;
 
-    //TODO: R&N Delete begin
-    // create text file and open it
-    time_t now, now2;
-    av_log(ctx, AV_LOG_INFO, "\n******do_psnr: begin******\n");
-    // current time
-    now = time(NULL);
-    //TODO: R&N Delete end
-
     PSNRContext *s = ctx->priv;
     AVFrame *master, *ref;
     double comp_mse[4], mse = 0.;
@@ -203,6 +196,16 @@ static int do_psnr(FFFrameSync *fs)
     AVDictionary **metadata;
     ThreadData td;
     int ret;
+
+    int a;
+
+    //TODO: R&N Delete begin
+    // create text file and open it
+    time_t now, now2;
+    av_log(ctx, AV_LOG_INFO, "\n******do_psnr: begin******\n");
+    // current time
+    now = time(NULL);
+    //TODO: R&N Delete end
 
     ret = ff_framesync_dualinput_get(fs, &master, &ref);
     if (ret < 0)
@@ -293,7 +296,7 @@ static int do_psnr(FFFrameSync *fs)
         }
         fprintf(s->stats_file, "\n");
     }
-    int a = ff_filter_frame(ctx->outputs[0], master);
+    a = ff_filter_frame(ctx->outputs[0], master);
     
     //TODO: R&N Delete begin 
     now2 = time(NULL);
@@ -349,14 +352,7 @@ static av_cold int init(AVFilterContext *ctx)
 
 static int query_formats(AVFilterContext *ctx)
 {
-    //TODO: R&N Delete begin
-    // create text file and open it
-    time_t now, now2;
-    av_log(ctx, AV_LOG_INFO, "\n******query_formats: begin******\n");
-    // current time
-    now = time(NULL);
-    //TODO: R&N Delete end
-
+    int a;
     static const enum AVPixelFormat pix_fmts[] = {
         AV_PIX_FMT_GRAY8, AV_PIX_FMT_GRAY9, AV_PIX_FMT_GRAY10, AV_PIX_FMT_GRAY12, AV_PIX_FMT_GRAY14, AV_PIX_FMT_GRAY16,
 #define PF_NOALPHA(suf) AV_PIX_FMT_YUV420##suf,  AV_PIX_FMT_YUV422##suf,  AV_PIX_FMT_YUV444##suf
@@ -372,18 +368,24 @@ static int query_formats(AVFilterContext *ctx)
         AV_PIX_FMT_NONE
     };
 
+    //TODO: R&N Delete begin
+    // create text file and open it
+    time_t now, now2;
+    av_log(ctx, AV_LOG_INFO, "\n******query_formats: begin******\n");
+    // current time
+    now = time(NULL);
+    //TODO: R&N Delete end
+
     AVFilterFormats *fmts_list = ff_make_format_list(pix_fmts);
     if (!fmts_list){
         //TODO: R&N Delete begin
-        now2 = time(NULL);
-
-        fprintf(fp, "query_formats: %ld\n", now2 - now); 
-        fclose(fp); 
+        now2 = time(NULL); 
+        av_log(ctx, AV_LOG_INFO, "\n******query_formats: end: %ld, end2: %ld******\n", now, now2);
         //TODO: R&N Delete end
         return AVERROR(ENOMEM);
     }
 
-    int a = ff_set_common_formats(ctx, fmts_list);
+    a = ff_set_common_formats(ctx, fmts_list);
 
     //TODO: R&N Delete begin
     now2 = time(NULL); 
@@ -394,6 +396,12 @@ static int query_formats(AVFilterContext *ctx)
 
 static int config_input_ref(AVFilterLink *inlink)
 {
+    const AVPixFmtDescriptor *desc = av_pix_fmt_desc_get(inlink->format);
+    AVFilterContext *ctx  = inlink->dst;
+    PSNRContext *s = ctx->priv;
+    double average_max;
+    unsigned sum;
+    int j;
     //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
@@ -401,13 +409,6 @@ static int config_input_ref(AVFilterLink *inlink)
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
-
-    const AVPixFmtDescriptor *desc = av_pix_fmt_desc_get(inlink->format);
-    AVFilterContext *ctx  = inlink->dst;
-    PSNRContext *s = ctx->priv;
-    double average_max;
-    unsigned sum;
-    int j;
 
     s->nb_threads = ff_filter_get_nb_threads(ctx);
     s->nb_components = desc->nb_components;
@@ -511,15 +512,16 @@ static int config_output(AVFilterLink *outlink)
 
 static int activate(AVFilterContext *ctx)
 {
+    PSNRContext *s = ctx->priv;
+
     //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
-    av_log(ctx, AV_LOG_INFO, "\n******activate: begin******\n");   
+    av_log(ctx, AV_LOG_INFO, "\n******activate: begin******\n");  
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
 
-    PSNRContext *s = ctx->priv;
     return ff_framesync_activate(&s->fs);
      //TODO: R&N Delete begin
     now2 = time(NULL); 
@@ -529,6 +531,8 @@ static int activate(AVFilterContext *ctx)
 
 static av_cold void uninit(AVFilterContext *ctx)
 {
+    PSNRContext *s = ctx->priv;
+
     //TODO: R&N Delete begin
     // create text file and open it
     time_t now, now2;
@@ -536,8 +540,6 @@ static av_cold void uninit(AVFilterContext *ctx)
     // current time
     now = time(NULL);
     //TODO: R&N Delete end
-
-    PSNRContext *s = ctx->priv;
 
     if (s->nb_frames > 0) {
         int j;
