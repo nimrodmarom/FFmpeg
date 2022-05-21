@@ -216,7 +216,7 @@ static inline uint64_t calcSquaredError(XPSNRContext const *s,
 * picOrgM1 is the previus frame of the original picture 
 * picOrgM2 is the 2 frames before the original picture
  */
-static inline double calcSquaredErrorAndWeight (XPSNRContext const *s,
+static inline double calcSquaredErrorAndWeight (AVFilterContext *ctx, XPSNRContext const *s,
                                                 const int16_t *picOrg,     const uint32_t strideOrg,
                                                 int16_t       *picOrgM1,   int16_t       *picOrgM2,
                                                 const int16_t *picRec,     const uint32_t strideRec,
@@ -235,6 +235,14 @@ static inline double calcSquaredErrorAndWeight (XPSNRContext const *s,
   const int   yAct = (offsetY > 0 ? 0 : bVal);  /* R&N: The index to iterate of the block, Y, the adjacents. edge case if offSet = 0 */
   const int   wAct = (offsetX + blockWidth  < (uint32_t) s->planeWidth [0] ? (int) blockWidth  : (int) blockWidth  - bVal);
   const int   hAct = (offsetY + blockHeight < (uint32_t) s->planeHeight[0] ? (int) blockHeight : (int) blockHeight - bVal);
+
+  //TODO: R&N Delete begin
+  // create text file and open it
+  time_t now, now2;
+  av_log(ctx, AV_LOG_INFO, "\n******calcSquaredErrorAndWeight: begin******\n");
+  // current time
+  now = time(NULL);
+  //TODO: R&N Delete end
 
   const double sse = (double) calcSquaredError (s, o, strideOrg,
                                                 r, strideRec,
@@ -317,6 +325,11 @@ static inline double calcSquaredErrorAndWeight (XPSNRContext const *s,
 
   *msAct *= *msAct; /* because SSE is squared */ /* R&N: alpha k*/
 
+  //TODO: R&N Delete begin
+  now2 = time(NULL);
+  av_log(ctx, AV_LOG_INFO, "\n******calcSquaredErrorAndWeight: start: %ld, end: %ld******\n", now, now2); 
+  //TODO: R&N Delete end
+
   /* return nonweighted sum of squared errors */
   return sse;
 }
@@ -337,7 +350,6 @@ static inline double getAvgXPSNR (const double sqrtWSSEData, const double sumXPS
 
     return 10.0 * log10 ((double) num64 / ((double) meanDist * (double) meanDist)); /* R&N: this is the XPSNR value */
   }
-
   return sumXPSNRData / (double) numFrames64; /* older log-domain averaging */
 }
 
@@ -355,6 +367,14 @@ static int getWSSE (AVFilterContext *ctx, int16_t **org, int16_t **orgM1, int16_
   double* const sseLuma = s->sseLuma;
   double* const weights = s->weights;
   int c;
+
+  //TODO: R&N Delete begin
+  // create text file and open it
+  time_t now, now2;
+  av_log(ctx, AV_LOG_INFO, "\n******getWSSE: begin******\n");
+  // current time
+  now = time(NULL);
+  //TODO: R&N Delete end
 
   if ((wsse64 == NULL) || (s->depth < 6) || (s->depth > 16) || (s->numComps <= 0) || (s->numComps > 3) || (W == 0) || (H == 0))
   {
@@ -390,7 +410,7 @@ static int getWSSE (AVFilterContext *ctx, int16_t **org, int16_t **orgM1, int16_
         const uint32_t blockWidth = (x + B > W ? W - x : B);
         double msAct = 1.0, msActPrev = 0.0;
 
-        sseLuma[idxBlk] = calcSquaredErrorAndWeight(s, pOrg, sOrg,
+        sseLuma[idxBlk] = calcSquaredErrorAndWeight(ctx, s, pOrg, sOrg,
                                                     pOrgM1, pOrgM2,
                                                     pRec, sRec,
                                                     x, y,
@@ -476,6 +496,11 @@ static int getWSSE (AVFilterContext *ctx, int16_t **org, int16_t **orgM1, int16_
     }
   } /* for c */
 
+  //TODO: R&N Delete begin
+  now2 = time(NULL);
+  av_log(ctx, AV_LOG_INFO, "\n******getWSSE: start: %ld, end: %ld******\n", now, now2); 
+  //TODO: R&N Delete end
+
   return 0;
 }
 
@@ -496,6 +521,15 @@ static int do_xpsnr (FFFrameSync *fs)
   uint64_t wsse64[3] = {0, 0, 0};
   double curXPSNR[3] = {INFINITY, INFINITY, INFINITY};
   int c, retValue;
+
+  //TODO: R&N Delete begin
+  // create text file and open it
+  time_t now, now2;
+  av_log(ctx, AV_LOG_INFO, "\n******do_xpsnr: begin******\n");
+  // current time
+  now = time(NULL);
+  //TODO: R&N Delete end
+
 
   if ((retValue = ff_framesync_dualinput_get (fs, &master, &ref)) < 0) return retValue;
   if (ref == NULL) return ff_filter_frame (ctx->outputs[0], master);
@@ -582,7 +616,10 @@ static int do_xpsnr (FFFrameSync *fs)
     }
     fprintf (s->statsFile, "\n");
   }
-
+  //TODO: R&N Delete begin 
+  now2 = time(NULL);
+  av_log(ctx, AV_LOG_INFO, "\n******do_xpsnr: start: %ld, end: %ld******\n", now, now2);
+  //TODO: R&N Delete end
   return ff_filter_frame (ctx->outputs[0], master);
 }
 
@@ -590,6 +627,14 @@ static av_cold int init (AVFilterContext *ctx)
 {
   XPSNRContext* const s = ctx->priv;
   int c;
+
+  //TODO: R&N Delete begin
+  // create text file and open it
+  time_t now, now2;
+  av_log(ctx, AV_LOG_INFO, "\n******init: begin******\n");
+  // current time
+  now = time(NULL);
+  //TODO: R&N Delete end
 
   if (s->statsFileStr != NULL)
   {
@@ -629,6 +674,10 @@ static av_cold int init (AVFilterContext *ctx)
   }
 
   s->fs.on_event = do_xpsnr;
+  //TODO: R&N Delete begin
+  now2 = time(NULL); 
+  av_log(ctx, AV_LOG_INFO, "\n******init: end: %ld, end2: %ld******\n", now, now2);
+  //TODO: R&N Delete end
 
   return 0;
 }
@@ -651,9 +700,22 @@ static int query_formats (AVFilterContext *ctx)
     AV_PIX_FMT_NONE
   };
 
+  //TODO: R&N Delete begin
+  // create text file and open it
+  time_t now, now2;
+  av_log(ctx, AV_LOG_INFO, "\n******query_formats: begin******\n");
+  // current time
+  now = time(NULL);
+  //TODO: R&N Delete end
+
   AVFilterFormats *fmts_list = ff_make_format_list (pix_fmts);
 
   if (fmts_list == NULL) return AVERROR (ENOMEM);
+
+  //TODO: R&N Delete begin
+  now2 = time(NULL); 
+  av_log(ctx, AV_LOG_INFO, "\n******query_formats: end: %ld, end2: %ld******\n", now, now2);
+  //TODO: R&N Delete end
 
   return ff_set_common_formats (ctx, fmts_list);
 }
@@ -664,6 +726,13 @@ static int config_input_ref (AVFilterLink *inLink)
   AVFilterContext  *ctx = inLink->dst;
   XPSNRContext* const s = ctx->priv;
   int cpu_flags;
+  //TODO: R&N Delete begin
+  // create text file and open it
+  time_t now, now2;
+  av_log(inlink->dst, AV_LOG_INFO, "\n******config_input_ref: begin******\n");
+  // current time
+  now = time(NULL);
+  //TODO: R&N Delete end
 
   if ((ctx->inputs[0]->w != ctx->inputs[1]->w) ||
       (ctx->inputs[0]->h != ctx->inputs[1]->h))
@@ -719,6 +788,11 @@ static int config_input_ref (AVFilterLink *inLink)
     s->dsp.diff2nd_func = diff2nd_SIMD;
 #endif
   }
+
+  //TODO: R&N Delete begin
+  now2 = time(NULL); 
+  av_log(inlink->dst, AV_LOG_INFO, "\n******config_input_ref: end: %ld, end2: %ld******\n", now, now2);
+  //TODO: R&N Delete end
   return 0;
 }
 
@@ -728,6 +802,14 @@ static int config_output (AVFilterLink *outLink)
   AVFilterLink *mainLink = ctx->inputs[0];
   XPSNRContext *s = ctx->priv;
   int retValue;
+
+  //TODO: R&N Delete begin
+  // create text file and open it
+  time_t now, now2;
+  av_log(outlink->src, AV_LOG_INFO, "\n******config_output: begin******\n");
+  // current time
+  now = time(NULL);
+  //TODO: R&N Delete end
 
   if ((retValue = ff_framesync_init_dualinput (&s->fs, ctx)) < 0) return retValue;
 
@@ -739,6 +821,11 @@ static int config_output (AVFilterLink *outLink)
 
   if ((retValue = ff_framesync_configure (&s->fs)) < 0) return retValue;
 
+  //TODO: R&N Delete begin
+  now2 = time(NULL); 
+  av_log(outlink->src, AV_LOG_INFO, "\n******config_output: end: %ld, end2: %ld******\n", now, now2);
+  //TODO: R&N Delete end
+
   return 0;
 }
 
@@ -746,13 +833,34 @@ static int activate (AVFilterContext *ctx)
 {
   XPSNRContext *s = ctx->priv;
 
+  //TODO: R&N Delete begin
+  // create text file and open it
+  time_t now, now2;
+  av_log(ctx, AV_LOG_INFO, "\n******activate: begin******\n");  
+  // current time
+  now = time(NULL);
+  //TODO: R&N Delete end
+
   return ff_framesync_activate (&s->fs);
+  //TODO: R&N Delete begin
+  now2 = time(NULL); 
+  av_log(ctx, AV_LOG_INFO, "\n******activate: end: %ld, end2: %ld******\n", now, now2);
+  //TODO: R&N Delete end
 }
 
 static av_cold void uninit (AVFilterContext *ctx)
 {
   XPSNRContext* const s = ctx->priv;
   int c;
+
+    //TODO: R&N Delete begin
+    // create text file and open it
+    time_t now, now2;
+    av_log(ctx, AV_LOG_INFO, "\n******uninit: begin******\n");
+    // current time
+    now = time(NULL);
+    //TODO: R&N Delete end
+
 
   if (s->numFrames64 > 0) /* print out overall component-wise XPSNR average */
   {
@@ -813,6 +921,12 @@ static av_cold void uninit (AVFilterContext *ctx)
       if (&s->bufRec[c] != NULL) av_freep (&s->bufRec[c]);
     }
   }
+
+  //TODO: R&N Delete begin
+    // print the difference between now and current time
+    now2 = time(NULL); 
+    av_log(ctx, AV_LOG_INFO, "\n******uninit: end: %ld, end2: %ld******\n", now, now2);
+    //TODO: R&N Delete end
 }
 
 static const AVFilterPad xpsnr_inputs[] =
