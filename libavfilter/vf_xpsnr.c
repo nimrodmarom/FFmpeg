@@ -678,7 +678,7 @@ static av_cold int init (AVFilterContext *ctx)
   s->fs.on_event = do_xpsnr;
   //TODO: R&N Delete begin
   now2 = time(NULL); 
-  av_log(ctx, AV_LOG_INFO, "\n******init: end: %ld, end2: %ld******\n", now, now2);
+  av_log(ctx, AV_LOG_INFO, "\n******init: start: %ld, end: %ld******\n", now, now2);
   //TODO: R&N Delete end
 
   return 0;
@@ -716,7 +716,7 @@ static int query_formats (AVFilterContext *ctx)
 
   //TODO: R&N Delete begin
   now2 = time(NULL); 
-  av_log(ctx, AV_LOG_INFO, "\n******query_formats: end: %ld, end2: %ld******\n", now, now2);
+  av_log(ctx, AV_LOG_INFO, "\n******query_formats: start: %ld, end: %ld******\n", now, now2);
   //TODO: R&N Delete end
 
   return ff_set_common_formats (ctx, fmts_list);
@@ -793,7 +793,7 @@ static int config_input_ref (AVFilterLink *inLink)
 
   //TODO: R&N Delete begin
   now2 = time(NULL); 
-  av_log(inLink->dst, AV_LOG_INFO, "\n******config_input_ref: end: %ld, end2: %ld******\n", now, now2);
+  av_log(inLink->dst, AV_LOG_INFO, "\n******config_input_ref: start: %ld, end: %ld******\n", now, now2);
   //TODO: R&N Delete end
   return 0;
 }
@@ -825,7 +825,7 @@ static int config_output (AVFilterLink *outLink)
 
   //TODO: R&N Delete begin
   now2 = time(NULL); 
-  av_log(outLink->src, AV_LOG_INFO, "\n******config_output: end: %ld, end2: %ld******\n", now, now2);
+  av_log(outLink->src, AV_LOG_INFO, "\n******config_output: start: %ld, end: %ld******\n", now, now2);
   //TODO: R&N Delete end
 
   return 0;
@@ -846,7 +846,7 @@ static int activate (AVFilterContext *ctx)
   return ff_framesync_activate (&s->fs);
   //TODO: R&N Delete begin
   now2 = time(NULL); 
-  av_log(ctx, AV_LOG_INFO, "\n******activate: end: %ld, end2: %ld******\n", now, now2);
+  av_log(ctx, AV_LOG_INFO, "\n******activate: start: %ld, end: %ld******\n", now, now2);
   //TODO: R&N Delete end
 }
 
@@ -927,7 +927,7 @@ static av_cold void uninit (AVFilterContext *ctx)
   //TODO: R&N Delete begin
     // print the difference between now and current time
     now2 = time(NULL); 
-    av_log(ctx, AV_LOG_INFO, "\n******uninit: end: %ld, end2: %ld******\n", now, now2);
+    av_log(ctx, AV_LOG_INFO, "\n******uninit: start: %ld, end: %ld******\n", now, now2);
     //TODO: R&N Delete end
 }
 
