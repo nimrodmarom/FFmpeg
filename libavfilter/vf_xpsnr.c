@@ -240,7 +240,6 @@ static inline double calcSquaredErrorAndWeight (AVFilterContext *ctx, XPSNRConte
   //TODO: R&N Delete begin
   //create text file and open it
   clock_t start, end;
-  av_log(ctx, AV_LOG_INFO, "\n******calcSquaredErrorAndWeight: begin******\n");
   // current time
   start = clock();
   //TODO: R&N Delete end
@@ -369,7 +368,6 @@ static int getWSSE (AVFilterContext *ctx, int16_t **org, int16_t **orgM1, int16_
   //TODO: R&N Delete begin
   // create text file and open it
   clock_t start, end;
-  av_log(ctx, AV_LOG_INFO, "\n******getWSSE: begin******\n");
   // current time
   start = clock();
   //TODO: R&N Delete end
@@ -519,7 +517,6 @@ static int do_xpsnr (FFFrameSync *fs)
   //TODO: R&N Delete begin
   // create text file and open it
   clock_t start, end;
-  av_log(ctx, AV_LOG_INFO, "\n******do_xpsnr: begin******\n");
   // current time
   start = clock();
   //TODO: R&N Delete end
@@ -622,7 +619,6 @@ static av_cold int init (AVFilterContext *ctx)
   //TODO: R&N Delete begin
   // create text file and open it
   clock_t start, end;
-  av_log(ctx, AV_LOG_INFO, "\n******init: begin******\n");
   // current time
   start = clock();
   //TODO: R&N Delete end
@@ -690,7 +686,6 @@ static int query_formats (AVFilterContext *ctx)
   //TODO: R&N Delete begin
   // create text file and open it
   clock_t start, end;
-  av_log(ctx, AV_LOG_INFO, "\n******query_formats: begin******\n");
   // current time
   start = clock();
   //TODO: R&N Delete end
@@ -712,7 +707,6 @@ static int config_input_ref (AVFilterLink *inLink)
   int cpu_flags;  //TODO: R&N Delete begin
   // create text file and open it
   clock_t start, end;
-  av_log(inLink->dst, AV_LOG_INFO, "\n******config_input_ref: begin******\n");
   // current time
   start = clock();
   //TODO: R&N Delete end
@@ -786,7 +780,6 @@ static int config_output (AVFilterLink *outLink)
   //TODO: R&N Delete begin
   // create text file and open it
   clock_t start, end;
-  av_log(outLink->src, AV_LOG_INFO, "\n******config_output: begin******\n");
   // current time
   start = clock();
   //TODO: R&N Delete end
@@ -812,7 +805,6 @@ static int activate (AVFilterContext *ctx)
   //TODO: R&N Delete begin
   // create text file and open it
   clock_t start, end;
-  av_log(ctx, AV_LOG_INFO, "\n******activate: begin******\n");  
   // current time
   start = clock();
   //TODO: R&N Delete end
@@ -830,7 +822,6 @@ static av_cold void uninit (AVFilterContext *ctx)
   //TODO: R&N Delete begin
     // create text file and open it
     clock_t start, end;
-    av_log(ctx, AV_LOG_INFO, "\n******uninit: begin******\n");
     // current time
     start = clock();
     //TODO: R&N Delete end

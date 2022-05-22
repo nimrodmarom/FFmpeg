@@ -128,7 +128,6 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
     //TODO: R&N Delete begin
     // create text file and open it
     clock_t start, end;
-    av_log(ctx, AV_LOG_INFO, "\n******compute_images_mse: begin******\n");
     // current time
     start = clock();
     //TODO: R&N Delete end
@@ -163,7 +162,6 @@ static void set_meta(AVFilterContext *ctx, AVDictionary **metadata, const char *
     //TODO: R&N Delete begin
     // create text file and open it
     clock_t start, end;
-    av_log(ctx, AV_LOG_INFO, "\n******set_meta: begin******\n");
     // current time
     start = clock();
     //TODO: R&N Delete end
@@ -199,7 +197,6 @@ static int do_psnr(FFFrameSync *fs)
     //TODO: R&N Delete begin
     // create text file and open it
     clock_t start, end;
-    av_log(ctx, AV_LOG_INFO, "\n******do_psnr: begin******\n");
     // current time
     start = clock();
     //TODO: R&N Delete end
@@ -306,7 +303,6 @@ static av_cold int init(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     // create text file and open it
     clock_t start, end;
-    av_log(ctx, AV_LOG_INFO, "\n******init: begin******\n");
     // current time
     start = clock();
     //TODO: R&N Delete end
@@ -365,7 +361,6 @@ static int query_formats(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     // create text file and open it
     clock_t start, end;
-    av_log(ctx, AV_LOG_INFO, "\n******query_formats: begin******\n");
     // current time
     start = clock();
     //TODO: R&N Delete end
@@ -398,7 +393,6 @@ static int config_input_ref(AVFilterLink *inlink)
     //TODO: R&N Delete begin
     // create text file and open it
     clock_t start, end;
-    av_log(inlink->dst, AV_LOG_INFO, "\n******config_input_ref: begin******\n");
     // current time
     start = clock();
     //TODO: R&N Delete end
@@ -466,7 +460,6 @@ static int config_output(AVFilterLink *outlink)
     //TODO: R&N Delete begin
     // create text file and open it
     clock_t start, end;
-    av_log(outlink->src, AV_LOG_INFO, "\n******config_output: begin******\n");
     // current time
     start = clock();
     //TODO: R&N Delete end    
@@ -507,7 +500,6 @@ static int activate(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     // create text file and open it
     clock_t start, end;
-    av_log(ctx, AV_LOG_INFO, "\n******activate: begin******\n");  
     // current time
     start = clock();
     //TODO: R&N Delete end
@@ -525,7 +517,6 @@ static av_cold void uninit(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     // create text file and open it
     clock_t start, end;
-    av_log(ctx, AV_LOG_INFO, "\n******uninit: begin******\n");
     // current time
     start = clock();
     //TODO: R&N Delete end
