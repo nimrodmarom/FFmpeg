@@ -325,7 +325,7 @@ static inline double calcSquaredErrorAndWeight (AVFilterContext *ctx, XPSNRConte
   *msAct *= *msAct; /* because SSE is squared */ /* R&N: alpha k*/
   //TODO: R&N Delete begin
   end = clock();
-  av_log(ctx, AV_LOG_INFO, "\n******calcSquaredErrorAndWeight: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC); 
+  av_log(ctx, AV_LOG_INFO, "******calcSquaredErrorAndWeight: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC); 
 
   //TODO: R&N Delete end
   /* return nonweighted sum of squared errors */
@@ -492,7 +492,7 @@ static int getWSSE (AVFilterContext *ctx, int16_t **org, int16_t **orgM1, int16_
   } /* for c */
   //TODO: R&N Delete begin
   end = clock();
-  av_log(ctx, AV_LOG_INFO, "\n******getWSSE: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC); 
+  av_log(ctx, AV_LOG_INFO, "******getWSSE: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC); 
   //TODO: R&N Delete end
   return 0;
 }
@@ -607,7 +607,7 @@ static int do_xpsnr (FFFrameSync *fs)
     fprintf (s->statsFile, "\n");
   }  //TODO: R&N Delete begin 
   end = clock();
-  av_log(ctx, AV_LOG_INFO, "\n******do_xpsnr: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+  av_log(ctx, AV_LOG_INFO, "******do_xpsnr: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
   //TODO: R&N Delete end  
   return ff_filter_frame (ctx->outputs[0], master);
 }
@@ -661,7 +661,7 @@ static av_cold int init (AVFilterContext *ctx)
 
   s->fs.on_event = do_xpsnr;  //TODO: R&N Delete begin
   end = clock(); 
-  av_log(ctx, AV_LOG_INFO, "\n******init: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+  av_log(ctx, AV_LOG_INFO, "******init: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
   //TODO: R&N Delete end
   return 0;
 }
@@ -694,7 +694,7 @@ static int query_formats (AVFilterContext *ctx)
   if (fmts_list == NULL) return AVERROR (ENOMEM);
   //TODO: R&N Delete begin
   end = clock(); 
-  av_log(ctx, AV_LOG_INFO, "\n******query_formats: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+  av_log(ctx, AV_LOG_INFO, "******query_formats: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
   //TODO: R&N Delete end
   return ff_set_common_formats (ctx, fmts_list);
 }
@@ -766,7 +766,7 @@ static int config_input_ref (AVFilterLink *inLink)
   }
   //TODO: R&N Delete begin
   end = clock(); 
-  av_log(inLink->dst, AV_LOG_INFO, "\n******config_input_ref: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+  av_log(inLink->dst, AV_LOG_INFO, "******config_input_ref: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
   //TODO: R&N Delete end  
   return 0;
 }
@@ -794,7 +794,7 @@ static int config_output (AVFilterLink *outLink)
   if ((retValue = ff_framesync_configure (&s->fs)) < 0) return retValue;
   //TODO: R&N Delete begin
   end = clock(); 
-  av_log(outLink->src, AV_LOG_INFO, "\n******config_output: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+  av_log(outLink->src, AV_LOG_INFO, "******config_output: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
   //TODO: R&N Delete end
   return 0;
 }
@@ -810,7 +810,7 @@ static int activate (AVFilterContext *ctx)
   //TODO: R&N Delete end
   return ff_framesync_activate (&s->fs);  //TODO: R&N Delete begin
   end = clock(); 
-  av_log(ctx, AV_LOG_INFO, "\n******activate: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+  av_log(ctx, AV_LOG_INFO, "******activate: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
   //TODO: R&N Delete end
 }
 
@@ -888,7 +888,7 @@ static av_cold void uninit (AVFilterContext *ctx)
   //TODO: R&N Delete begin
   // print the difference between now and current time
   end = clock(); 
-  av_log(ctx, AV_LOG_INFO, "\n******uninit: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+  av_log(ctx, AV_LOG_INFO, "******uninit: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
   //TODO: R&N Delete end
 }
 
