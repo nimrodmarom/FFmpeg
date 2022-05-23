@@ -150,7 +150,7 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
     }
     //TODO: R&N Delete begin
     end = clock();
-    av_log(ctx, AV_LOG_INFO, "\n******compute_images_mse: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+    av_log(ctx, AV_LOG_INFO, "******compute_images_mse: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end
     return 0;
 }
@@ -176,7 +176,7 @@ static void set_meta(AVFilterContext *ctx, AVDictionary **metadata, const char *
 
     //TODO: R&N Delete begin
     end = clock();
-    av_log(ctx, AV_LOG_INFO, "\n******set_meta: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC); 
+    av_log(ctx, AV_LOG_INFO, "******set_meta: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC); 
     //TODO: R&N Delete end
 }
 
@@ -293,7 +293,7 @@ static int do_psnr(FFFrameSync *fs)
     
     //TODO: R&N Delete begin 
     end = clock();
-    av_log(ctx, AV_LOG_INFO, "\n******do_psnr: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+    av_log(ctx, AV_LOG_INFO, "******do_psnr: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end
     return a;
 }
@@ -335,7 +335,7 @@ static av_cold int init(AVFilterContext *ctx)
     s->fs.on_event = do_psnr;
     //TODO: R&N Delete begin
     end = clock(); 
-    av_log(ctx, AV_LOG_INFO, "\n******init: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+    av_log(ctx, AV_LOG_INFO, "******init: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end    
     return 0;
 }
@@ -368,7 +368,7 @@ static int query_formats(AVFilterContext *ctx)
     if (!fmts_list){
         //TODO: R&N Delete begin
         end = clock(); 
-        av_log(ctx, AV_LOG_INFO, "\n******query_formats: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+        av_log(ctx, AV_LOG_INFO, "******query_formats: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
         //TODO: R&N Delete end        
         return AVERROR(ENOMEM);
     }
@@ -377,7 +377,7 @@ static int query_formats(AVFilterContext *ctx)
 
     //TODO: R&N Delete begin
     end = clock(); 
-    av_log(ctx, AV_LOG_INFO, "\n******query_formats: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+    av_log(ctx, AV_LOG_INFO, "******query_formats: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end    
     return a;
 }
@@ -449,7 +449,7 @@ static int config_input_ref(AVFilterLink *inlink)
 
     //TODO: R&N Delete begin
     end = clock(); 
-    av_log(inlink->dst, AV_LOG_INFO, "\n******config_input_ref: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+    av_log(inlink->dst, AV_LOG_INFO, "******config_input_ref: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end
     return 0;
 }
@@ -488,7 +488,7 @@ static int config_output(AVFilterLink *outlink)
     
     //TODO: R&N Delete begin
     end = clock(); 
-    av_log(outlink->src, AV_LOG_INFO, "\n******config_output: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+    av_log(outlink->src, AV_LOG_INFO, "******config_output: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end
     return 0;
 }
@@ -506,7 +506,7 @@ static int activate(AVFilterContext *ctx)
     return ff_framesync_activate(&s->fs);
      //TODO: R&N Delete begin
     end = clock(); 
-    av_log(ctx, AV_LOG_INFO, "\n******activate: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+    av_log(ctx, AV_LOG_INFO, "******activate: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end
 }
 
@@ -548,7 +548,7 @@ static av_cold void uninit(AVFilterContext *ctx)
     //TODO: R&N Delete begin
     // print the difference between now and current time
     end = clock(); 
-    av_log(ctx, AV_LOG_INFO, "\n******uninit: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+    av_log(ctx, AV_LOG_INFO, "******uninit: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
     //TODO: R&N Delete end    
 
 }
