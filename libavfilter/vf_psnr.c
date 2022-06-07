@@ -196,16 +196,20 @@ static int do_psnr(FFFrameSync *fs)
 
     //TODO: R&N Delete begin
     // create text file and open it
-    clock_t start, end;
+    clock_t start, end, sum = 0;
     // current time
-    start = clock();
     //TODO: R&N Delete end
     ret = ff_framesync_dualinput_get(fs, &master, &ref);
     if (ret < 0)
         return ret;
     if (ctx->is_disabled || !ref)
         return ff_filter_frame(ctx->outputs[0], master);
+    //TODO: R&N Delete begin
+    // current time
+    start = clock();
+    //TODO: R&N Delete end
     metadata = &master->metadata;
+
 
     td.nb_components = s->nb_components;
     td.dsp = &s->dsp;
@@ -218,7 +222,7 @@ static int do_psnr(FFFrameSync *fs)
         td.planewidth[c] = s->planewidth[c];
         td.planeheight[c] = s->planeheight[c];
     }
-
+    
     ctx->internal->execute(ctx, compute_images_mse, &td, NULL, FFMIN(s->planeheight[1], s->nb_threads));
 
     for (int j = 0; j < s->nb_threads; j++) {

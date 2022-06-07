@@ -59,6 +59,7 @@ INFRINGEMENT WITH RESPECT TO THIS SOFTWARE.
 #include "internal.h"
 #include "video.h"
 #include "xpsnr.h"
+#include <chrono>
 
 #include <time.h>
 
@@ -239,9 +240,9 @@ static inline double calcSquaredErrorAndWeight (AVFilterContext *ctx, XPSNRConte
   const int   hAct = (offsetY + blockHeight < (uint32_t) s->planeHeight[0] ? (int) blockHeight : (int) blockHeight - bVal);
   //TODO: R&N Delete begin
   //create text file and open it
-  clock_t start, end;
+  std::chrono::duration<double, std::milli> start, end;
   // current time
-  start = clock();
+  start = std::chrono::high_resolution_clock::now();
   //TODO: R&N Delete end
   const double sse = (double) calcSquaredError (s, o, strideOrg,
                                                 r, strideRec,
@@ -324,8 +325,8 @@ static inline double calcSquaredErrorAndWeight (AVFilterContext *ctx, XPSNRConte
 
   *msAct *= *msAct; /* because SSE is squared */ /* R&N: alpha k*/
   //TODO: R&N Delete begin
-  end = clock();
-  av_log(ctx, AV_LOG_INFO, "******calcSquaredErrorAndWeight: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC); 
+  end = std::chrono::high_resolution_clock::now();
+  av_log(ctx, AV_LOG_INFO, "******calcSquaredErrorAndWeight: differnt: %f ******\n", (end - start).count()); 
 
   //TODO: R&N Delete end
   /* return nonweighted sum of squared errors */
