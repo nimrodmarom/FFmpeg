@@ -196,7 +196,7 @@ static int do_psnr(FFFrameSync *fs)
 
     //TODO: R&N Delete begin
     // create text file and open it
-    clock_t start, end, sum = 0;
+    struct timeval begin, end;
     // current time
     //TODO: R&N Delete end
     ret = ff_framesync_dualinput_get(fs, &master, &ref);
