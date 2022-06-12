@@ -59,6 +59,7 @@ INFRINGEMENT WITH RESPECT TO THIS SOFTWARE.
 #include "internal.h"
 #include "video.h"
 #include "xpsnr.h"
+#include <sys/time.h>
 
 #include <time.h>
 
@@ -516,9 +517,9 @@ static int do_xpsnr (FFFrameSync *fs)
   int c, retValue;
   //TODO: R&N Delete begin
   // create text file and open it
-  clock_t start, end;
+  struct timeval begin, end;
   // current time
-  start = clock();
+  gettimeofday(&begin, 0);
   //TODO: R&N Delete end
 
   if ((retValue = ff_framesync_dualinput_get (fs, &master, &ref)) < 0) return retValue;
@@ -606,8 +607,8 @@ static int do_xpsnr (FFFrameSync *fs)
     }
     fprintf (s->statsFile, "\n");
   }  //TODO: R&N Delete begin 
-  end = clock();
-  av_log(ctx, AV_LOG_INFO, "******do_xpsnr: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+  gettimeofday(&end, 0);
+  av_log(ctx, AV_LOG_INFO, "******do_xpsnr: differnt: %d ******\n", (long) (end.tv_sec - begin.tv_sec));
   //TODO: R&N Delete end  
   return ff_filter_frame (ctx->outputs[0], master);
 }
