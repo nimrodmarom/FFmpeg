@@ -33,8 +33,8 @@
 #include "internal.h"
 #include "psnr.h"
 #include "video.h"
-
-#include <time.h>
+#include <sys/time.h>
+//#include <time.h>
 
 typedef struct PSNRContext {
     const AVClass *class;
@@ -127,9 +127,9 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
 
     //TODO: R&N Delete begin
     // create text file and open it
-    clock_t start, end;
+    struct timeval begin, end;
     // current time
-    start = clock();
+    gettimeofday(&begin, 0);
     //TODO: R&N Delete end
     for (int c = 0; c < td->nb_components; c++) {
         const int outw = td->planewidth[c];
@@ -149,8 +149,8 @@ int compute_images_mse(AVFilterContext *ctx, void *arg,
         score[c] = m;
     }
     //TODO: R&N Delete begin
-    end = clock();
-    av_log(ctx, AV_LOG_INFO, "******compute_images_mse: differnt: %f ******\n", ((double) (end - start)) / CLOCKS_PER_SEC);
+    gettimeofday(&end, 0);
+    av_log(ctx, AV_LOG_INFO, "******compute_images_mse: differnt: %f ******\n", (long)(end.tv_sec - begin.tv_sec));
     //TODO: R&N Delete end
     return 0;
 }
