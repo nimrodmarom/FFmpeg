@@ -34,7 +34,7 @@
 #include "psnr.h"
 #include "video.h"
 #include <sys/time.h>
-//#include <time.h>
+#include <time.h>
 
 typedef struct PSNRContext {
     const AVClass *class;
