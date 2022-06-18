@@ -297,7 +297,7 @@ static int do_psnr(FFFrameSync *fs)
     
     //TODO: R&N Delete begin 
     gettimeofday(&end, 0);
-    av_log(ctx, AV_LOG_INFO, "******do_psnr: differnt: %ld , %ld ******\n", end.tv_sec, begin.tv_sec);
+    av_log(ctx, AV_LOG_INFO, "******do_psnr: differnt: %ld , %ld ******\n", end.tv_usec, begin.tv_usec);
     //TODO: R&N Delete end
     return a;
 }
