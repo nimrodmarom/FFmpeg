@@ -492,7 +492,7 @@ static int config_output(AVFilterLink *outlink)
     
     //TODO: R&N Delete begin
     gettimeofday(&end, 0); 
-    av_log(outlink->src, AV_LOG_INFO, "******config_output: differnt: %f ******\n", ((float)(1000000 * (end.tv_sec - begin.tv_sec) + (end.tv_usec - begin.tv_usec)) / 1000000));
+    av_log(outlink->src, AV_LOG_INFO, "******config_output: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec - begin.tv_usec)) / 1000000.0));
     //TODO: R&N Delete end
     return 0;
 }
