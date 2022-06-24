@@ -588,7 +588,7 @@ static int do_xpsnr(FFFrameSync *fs)
     }
   }
   gettimeofday(&end_allocs, 0);
-  av_log(ctx, AV_LOG_INFO, "******allocs: differnt: %lf ******\n", ((unsigned long long)((1000000 * end_allocs.tv_sec + end_allocs.tv_usec) - (1000000 * begnin_allocs.tv_sec - begnin_allocs.tv_usec)) / 1000000.0));
+  av_log(ctx, AV_LOG_INFO, "******allocs: differnt: %lf ******\n", ((unsigned long long)((1000000 * end_allocs.tv_sec + end_allocs.tv_usec) - (1000000 * begin_allocs.tv_sec - begin_allocs.tv_usec)) / 1000000.0));
 
   /* extended perceptually weighted peak signal-to-noise ratio (XPSNR) data */
 
