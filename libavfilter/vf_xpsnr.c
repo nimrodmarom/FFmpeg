@@ -318,7 +318,7 @@ static inline double calcSquaredErrorAndWeight(AVFilterContext *ctx, XPSNRContex
   *msAct *= *msAct; /* because SSE is squared */ /* R&N: alpha k*/
   // TODO: R&N Delete begin
   gettimeofday(&end, 0);
-  av_log(ctx, AV_LOG_INFO, "******calcSquaredErrorAndWeight: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec - begin.tv_usec)) / 1000000.0));
+  av_log(ctx, AV_LOG_INFO, "******calcSquaredErrorAndWeight: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec + begin.tv_usec)) / 1000000.0));
 
   // TODO: R&N Delete end
   /* return nonweighted sum of squared errors */
@@ -487,7 +487,7 @@ static int getWSSE(AVFilterContext *ctx, int16_t **org, int16_t **orgM1, int16_t
   } /* for c */
   // TODO: R&N Delete begin
   gettimeofday(&end, 0);
-  av_log(ctx, AV_LOG_INFO, "******getWSSE: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec - begin.tv_usec)) / 1000000.0));
+  av_log(ctx, AV_LOG_INFO, "******getWSSE: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec + begin.tv_usec)) / 1000000.0));
   // TODO: R&N Delete end
   return 0;
 }
@@ -524,7 +524,7 @@ static int do_xpsnr(FFFrameSync *fs)
     return retValue;
 
   gettimeofday(&end_ff_frame_sync, 0);
-  av_log(ctx, AV_LOG_INFO, "******ff_framesync_dualinput_get: differnt: %lf ******\n", ((unsigned long long)((1000000 * end_ff_frame_sync.tv_sec + end_ff_frame_sync.tv_usec) - (1000000 * begin_ff_frame_sync.tv_sec - begin_ff_frame_sync.tv_usec)) / 1000000.0));
+  av_log(ctx, AV_LOG_INFO, "******ff_framesync_dualinput_get: differnt: %lf ******\n", ((unsigned long long)((1000000 * end_ff_frame_sync.tv_sec + end_ff_frame_sync.tv_usec) - (1000000 * begin_ff_frame_sync.tv_sec + begin_ff_frame_sync.tv_usec)) / 1000000.0));
 
   if (ref == NULL)
     return ff_filter_frame(ctx->outputs[0], master);
@@ -588,7 +588,7 @@ static int do_xpsnr(FFFrameSync *fs)
     }
   }
   gettimeofday(&end_allocs, 0);
-  av_log(ctx, AV_LOG_INFO, "******allocs: differnt: %lf ******\n", ((unsigned long long)((1000000 * end_allocs.tv_sec + end_allocs.tv_usec) - (1000000 * begin_allocs.tv_sec - begin_allocs.tv_usec)) / 1000000.0));
+  av_log(ctx, AV_LOG_INFO, "******allocs: differnt: %lf ******\n", ((unsigned long long)((1000000 * end_allocs.tv_sec + end_allocs.tv_usec) - (1000000 * begin_allocs.tv_sec + begin_allocs.tv_usec)) / 1000000.0));
 
   /* extended perceptually weighted peak signal-to-noise ratio (XPSNR) data */
 
@@ -609,7 +609,7 @@ static int do_xpsnr(FFFrameSync *fs)
     s->sumXPSNR[c] += curXPSNR[c]; /* R&N : saves into sumXPSNR the XPSNR of current frame - fs */
     s->andIsInf[c] &= isinf(curXPSNR[c]);
     gettimeofday(&end_getAvgXPSNR, 0);
-    av_log(ctx, AV_LOG_INFO, "******getAvgXPSNR: differnt: %lf ******\n", ((unsigned long long)((1000000 * end_getAvgXPSNR.tv_sec + end_getAvgXPSNR.tv_usec) - (1000000 * begin_getAvgXPSNR.tv_sec - begin_getAvgXPSNR.tv_usec)) / 1000000.0));
+    av_log(ctx, AV_LOG_INFO, "******getAvgXPSNR: differnt: %lf ******\n", ((unsigned long long)((1000000 * end_getAvgXPSNR.tv_sec + end_getAvgXPSNR.tv_usec) - (1000000 * begin_getAvgXPSNR.tv_sec + begin_getAvgXPSNR.tv_usec)) / 1000000.0));
   }
   s->numFrames64++;
 
@@ -624,7 +624,7 @@ static int do_xpsnr(FFFrameSync *fs)
     fprintf(s->statsFile, "\n");
   } // TODO: R&N Delete begin
   gettimeofday(&end, 0);
-  av_log(ctx, AV_LOG_INFO, "******do_xpsnr: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec - begin.tv_usec)) / 1000000.0));
+  av_log(ctx, AV_LOG_INFO, "******do_xpsnr: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec + begin.tv_usec)) / 1000000.0));
   // TODO: R&N Delete end
   return ff_filter_frame(ctx->outputs[0], master);
 }
@@ -678,7 +678,7 @@ static av_cold int init(AVFilterContext *ctx)
 
   s->fs.on_event = do_xpsnr; // TODO: R&N Delete begin
   gettimeofday(&end, 0);
-  av_log(ctx, AV_LOG_INFO, "******init: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec - begin.tv_usec)) / 1000000.0));
+  av_log(ctx, AV_LOG_INFO, "******init: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec + begin.tv_usec)) / 1000000.0));
   // TODO: R&N Delete end
   return 0;
 }
@@ -711,7 +711,7 @@ static int query_formats(AVFilterContext *ctx)
     return AVERROR(ENOMEM);
   // TODO: R&N Delete begin
   gettimeofday(&end, 0);
-  av_log(ctx, AV_LOG_INFO, "******query_formats: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec - begin.tv_usec)) / 1000000.0));
+  av_log(ctx, AV_LOG_INFO, "******query_formats: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec + begin.tv_usec)) / 1000000.0));
   // TODO: R&N Delete end
   return ff_set_common_formats(ctx, fmts_list);
 }
@@ -784,7 +784,7 @@ static int config_input_ref(AVFilterLink *inLink)
   }
   // TODO: R&N Delete begin
   gettimeofday(&end, 0);
-  av_log(inLink->dst, AV_LOG_INFO, "******config_input_ref: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec - begin.tv_usec)) / 1000000.0));
+  av_log(inLink->dst, AV_LOG_INFO, "******config_input_ref: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec + begin.tv_usec)) / 1000000.0));
   // TODO: R&N Delete end
   return 0;
 }
@@ -814,7 +814,7 @@ static int config_output(AVFilterLink *outLink)
     return retValue;
   // TODO: R&N Delete begin
   gettimeofday(&end, 0);
-  av_log(outLink->src, AV_LOG_INFO, "******config_output: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec - begin.tv_usec)) / 1000000.0));
+  av_log(outLink->src, AV_LOG_INFO, "******config_output: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec + begin.tv_usec)) / 1000000.0));
   // TODO: R&N Delete end
   return 0;
 }
@@ -830,7 +830,7 @@ static int activate(AVFilterContext *ctx)
   // TODO: R&N Delete end
   return ff_framesync_activate(&s->fs); // TODO: R&N Delete begin
   gettimeofday(&end, 0);
-  av_log(ctx, AV_LOG_INFO, "******activate: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec - begin.tv_usec)) / 1000000.0));
+  av_log(ctx, AV_LOG_INFO, "******activate: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec + begin.tv_usec)) / 1000000.0));
   // TODO: R&N Delete end
 }
 
@@ -917,7 +917,7 @@ static av_cold void uninit(AVFilterContext *ctx)
   // TODO: R&N Delete begin
   //  print the difference between now and current time
   gettimeofday(&end, 0);
-  av_log(ctx, AV_LOG_INFO, "******uninit: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec - begin.tv_usec)) / 1000000.0));
+  av_log(ctx, AV_LOG_INFO, "******uninit: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec + begin.tv_usec)) / 1000000.0));
   // TODO: R&N Delete end
 }
 
