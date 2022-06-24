@@ -387,10 +387,6 @@ static int query_formats(AVFilterContext *ctx)
     AVFilterFormats *fmts_list = ff_make_format_list(pix_fmts);
     if (!fmts_list)
     {
-        // TODO: R&N Delete begin
-        gettimeofday(&end, 0);
-        av_log(ctx, AV_LOG_INFO, "******query_formats: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec + begin.tv_usec)) / 1000000.0));
-        // TODO: R&N Delete end
         return AVERROR(ENOMEM);
     }
 
