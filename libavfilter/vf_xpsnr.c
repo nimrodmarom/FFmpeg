@@ -487,9 +487,9 @@ static int getWSSE(AVFilterContext *ctx, int16_t **org, int16_t **orgM1, int16_t
         }
       }
       wsse64[c] = (wsseChroma <= 0.0 ? 0 : (uint64_t)(wsseChroma * avgAct + 0.5));
-      gettimeofday(&end_calcSquarredError, 0);
-      av_log(ctx, AV_LOG_INFO, "******calcSquaredError: differnt: %lf ******\n", ((unsigned long long)((1000000 * end_calcSquarredError.tv_sec + end_calcSquarredError.tv_usec) - (1000000 * begin_calcSquarredError.tv_sec + begin_calcSquarredError.tv_usec)) / 1000000.0));
     }
+    gettimeofday(&end_calcSquarredError, 0);
+    av_log(ctx, AV_LOG_INFO, "******calcSquaredError: differnt: %lf ******\n", ((unsigned long long)((1000000 * end_calcSquarredError.tv_sec + end_calcSquarredError.tv_usec) - (1000000 * begin_calcSquarredError.tv_sec + begin_calcSquarredError.tv_usec)) / 1000000.0));
   } /* for c */
   // TODO: R&N Delete begin
   gettimeofday(&end, 0);
