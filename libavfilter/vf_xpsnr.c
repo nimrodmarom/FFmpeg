@@ -514,7 +514,7 @@ static int do_xpsnr(FFFrameSync *fs)
   int16_t *pRec[3];
   uint64_t wsse64[3] = {0, 0, 0};
   double curXPSNR[3] = {INFINITY, INFINITY, INFINITY};
-  int c, retValue;
+  int c, a, retValue;
   // TODO: R&N Delete begin
   //  create text file and open it
   struct timeval begin, end;
@@ -628,11 +628,15 @@ static int do_xpsnr(FFFrameSync *fs)
       fprintf(s->statsFile, "  XPSNR %c: %3.4f", s->comps[c], curXPSNR[c]);
     }
     fprintf(s->statsFile, "\n");
-  } // TODO: R&N Delete begin
+  }
+  a = ff_filter_frame(ctx->outputs[0], master);
+
+  // TODO: R&N Delete begin
   gettimeofday(&end, 0);
   av_log(ctx, AV_LOG_INFO, "******do_xpsnr: differnt: %lf ******\n", ((unsigned long long)((1000000 * end.tv_sec + end.tv_usec) - (1000000 * begin.tv_sec + begin.tv_usec)) / 1000000.0));
   // TODO: R&N Delete end
-  return ff_filter_frame(ctx->outputs[0], master);
+
+  return a;
 }
 
 static av_cold int init(AVFilterContext *ctx)

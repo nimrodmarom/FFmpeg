@@ -9,6 +9,8 @@
         "string_view": "c",
         "initializer_list": "c",
         "chrono": "c",
-        "opt.h": "c"
+        "opt.h": "c",
+        "time.h": "c",
+        "formats.h": "c"
     }
 }
