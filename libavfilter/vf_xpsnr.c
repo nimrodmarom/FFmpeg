@@ -772,6 +772,7 @@ static int config_input_ref(AVFilterLink *inLink)
   if (EXTERNAL_AVX2(cpu_flags))
   {
 #ifdef __AVX2__
+    print()
     s->dsp.highds_func = highds_SIMD;
     s->dsp.diff1st_func = diff1st_SIMD;
     s->dsp.diff2nd_func = diff2nd_SIMD;
