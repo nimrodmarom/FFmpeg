@@ -11,6 +11,11 @@
         "chrono": "c",
         "opt.h": "c",
         "time.h": "c",
-        "formats.h": "c"
+        "formats.h": "c",
+        "system_error": "cpp",
+        "functional": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp"
     }
 }
